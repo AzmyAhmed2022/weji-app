@@ -1,0 +1,40 @@
+<!-- // Azmio 31-10-2022 -->
+<div draggable="true" ngClass="{{ dragAreaClass }}" style="margin-top: 15px; height: 120px;margin-top: 20px;">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            {{ translate.currentLang == "ar" ? "اسحب الملف هنا" : "Drag files here" }}
+
+            <a href="javascript:void(0)" (click)="file.click()">
+                {{ translate.currentLang == "ar" ? "أو اختر ملف" : "or click to open" }}
+            </a>
+            <div>
+                {{ fileDtails }}
+            </div>
+            <input type="file" #file [multiple]="false" (change)="onFileChange($event)" style="display: none" />
+        </div>
+    </div>
+</div>
+<div class="error" *ngIf="error">
+    {{
+    translate.currentLang == "ar"
+    ? "سحب ملف واحد فقط"
+    : "Only one file at time allow"
+    }}
+</div>
+
+<!-- <div>
+  <h3>File Content</h3>
+  <pre> {{fileContent}} </pre>
+</div> -->
+
+<div>
+    <ckeditor [data]="fileContent"></ckeditor>
+</div>
+<div class="row" style="text-align: center;padding:15px">
+    <div class="col-12">
+     <button type="button"   (click)="exportAsWord()" class="btn btn-sm btn-success btn-floating mx-1">
+        <i class="fa fa-file-word-o" aria-hidden="true"></i> Export As Word</button>
+   </div> 
+  
+   <!-- end of doc -->
+ </div>

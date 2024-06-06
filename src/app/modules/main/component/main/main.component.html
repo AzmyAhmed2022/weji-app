@@ -1,0 +1,7 @@
+<div [ngClass]="appDir=='rtl'?'rtl-class':'ltr-class'">
+<app-main-side-nav (onToggleSideNav)="onToggleSideNav($event)"
+(changAppLang)="changAppLang($event)"
+(getCategoryByName)="getCategoryName($event)">
+</app-main-side-nav>
+<app-main-body [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth"></app-main-body>
+</div> 

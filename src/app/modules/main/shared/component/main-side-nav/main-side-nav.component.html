@@ -1,0 +1,268 @@
+<!-- Header -->
+<!-- ======= Header ======= -->
+<header id="header" class="header fixed-top d-flex align-items-center header-container p-1 justify-content-between">
+    <div>
+        <div id="logo">
+            <h1 style="padding:5px;">
+                <a class="open-menu" (click)="toggleCollapse($event)" *ngIf="!collapsed">
+                    <i class="fa fa-bars"></i>
+
+                </a>
+                <a class="close-menu" (click)="closeSideNav($event)" *ngIf="collapsed">
+                    <i class='fa fa-close'></i>
+                </a>
+                <a><span>جي <i class='fa fa-sm fa-rocket'></i></span>We</a>
+
+            </h1>
+
+
+
+        </div>
+    </div>
+    <div class="desktop-css">
+        <div class="d-inline-flex">
+            <div>
+                <!-- ------login -->
+                <a class="btn d-inline-flex btn-sm btn-neutral border-base mx-1"
+                    *ngIf="UserData.LoginStatus==0 || UserData.LoginStatus==null" [routerLink]="['/main/login']">
+                    <span class=" pe-2">
+                        <i class="fa fa-sign-in"></i>
+                    </span>
+                    <span>
+                        {{translate.currentLang=='ar'?"دخول":"Login"}}
+                    </span>
+
+                </a>
+                <a class="btn d-inline-flex btn-sm btn-neutral border-base mx-1"
+                    *ngIf="(UserData?.UserType==2 || UserData?.UserType==1) &&UserData.LoginStatus==1"
+                    (click)="logOutClicked()">
+                    <span class=" pe-2">
+                        <i class="fa fa-sign-out"></i>
+                    </span>
+                    <span>
+                        {{translate.currentLang=='ar'?"خروج":"Out"}}
+                    </span>
+
+                </a>
+                <!-- -------------home -->
+                <a [routerLink]="['/main']" class="btn d-inline-flex btn-sm btn-neutral border-base mx-1">
+                    <span class=" pe-2">
+                        <i class="fa fa-sm fa-opencart"></i>
+                    </span>
+                    <span> {{translate.currentLang=='ar'?'الرئيسية':'Home'}}
+
+                    </span>
+
+                </a>
+            </div>
+
+
+            <!-- lang -->
+            <a class="btn d-inline-flex btn-sm btn-neutral border-base mx-1" (click)="langBtnClicked()">
+                <span class=" pe-2">
+                    <i class="fa fa-sign-language"></i>
+                </span>
+                <span>
+                    {{"LANG"|translate}} </span>
+
+            </a>
+
+        </div>
+    </div>
+
+
+    <div class="d-flex align-items-center ">
+
+        <div>
+
+            <!-- ----------order  -->
+
+            <a class="btn d-inline-flex btn-sm btn-neutral border-base mx-1 p-2" (click)="openModal()">
+                <span class=" pe-2">
+                    <i class="fa fa-plus"></i>
+                </span>
+                <span>
+                    {{translate.currentLang=='ar'?'أطلب':'Order'}} </span>
+
+            </a>
+
+        </div>
+
+
+    </div>
+</header><!-- End Header -->
+
+
+
+<!-- side categories area -->
+<div class="sidenav" [ngClass]="collapsed?'sidenav-collapsed':''">
+
+    <div class="mobile-css" *ngIf="collapsed">
+        <div class="d-inline-flex">
+            <div>
+                <!-- ------login -->
+                <a class="btn d-inline-flex btn-sm btn-neutral border-base mx-1"
+                    *ngIf="UserData.LoginStatus==0 || UserData.LoginStatus==null" [routerLink]="['/main/login']">
+                    <span class=" pe-2">
+                        <i class="fa fa-sign-in"></i>
+                    </span>
+                    <span>
+                        {{translate.currentLang=='ar'?"دخول":"Login"}}
+                    </span>
+
+                </a>
+                <a class="btn d-inline-flex btn-sm btn-neutral border-base mx-1"
+                    *ngIf="(UserData?.UserType==2 || UserData?.UserType==1) &&UserData.LoginStatus==1"
+                    (click)="logOutClicked()">
+                    <span class=" pe-2">
+                        <i class="fa fa-sign-out"></i>
+                    </span>
+                    <span>
+                        {{translate.currentLang=='ar'?"خروج":"Out"}}
+                    </span>
+
+                </a>
+
+
+                <!-- lang -->
+                <a class="btn d-inline-flex btn-sm btn-neutral border-base mx-1" (click)="langBtnClicked()">
+                    <span class=" pe-2">
+                        <i class="fa fa-sign-language"></i>
+                    </span>
+                    <span>
+                        {{"LANG"|translate}} </span>
+
+                </a>
+            </div>
+
+            <!-- -------------home -->
+            <a [routerLink]="['/main']" class="btn d-inline-flex btn-sm btn-neutral border-base mx-1">
+                <span class=" pe-2">
+                    <i class="fa fa-sm fa-opencart"></i>
+                </span>
+                <span> {{translate.currentLang=='ar'?'الرئيسية':'Home'}}
+
+                </span>
+
+            </a>
+
+        </div>
+    </div>
+
+
+
+    <ul class="sidenav-nav overflow-y-lg-auto" [ngClass]="collapsed?'sidenav-collapsed':''"
+        style="max-height:550px;overflow-y: scroll;">
+        <div class="d-flex justify-content-center  sidenav-header">
+            <div *ngIf="collapsed && UserData.LoginStatus == 1">
+                <strong class="text-muted form-label">
+                    {{UserData?.Mobile}}
+                </strong>
+                <strong class="text-muted form-label">
+                    {{UserData?.FullName}}
+                </strong>
+
+            </div>
+            <!-- <div>
+                <span class="user" *ngIf="UserData?.UserType==2 || UserData?.UserType==1" class="text-muted form-label">
+                    {{UserData?.FullName}}
+                </span>
+            </div> -->
+
+        </div>
+
+        <li *ngIf="collapsed">
+            <div class="col-12">
+                <input type="text" class="form-control form-control-sm" [formControl]="searchInputControl"
+                    [placeholder]="translate.currentLang=='ar'?'بحث داخل الاقسام ....':'Search On Categories'">
+            </div>
+        </li>
+        <!--      
+        <li *ngIf="collapsed">
+            <a>
+                <img src="/assets/images/home.png"
+                    style="width:45%;height:100px;margin-right:70px;margin-left:70px;margin-top: 5px;">
+            </a>
+        </li> -->
+
+        <li class="sidenav-nav-item" *ngFor="let link of wejiCategories">
+            <a class="sidenav-nav-link"
+                (click)="getCategoryName(translate.currentLang=='ar'?link.NameAr:link.NameEn,link.ClassName,link.Serial)"
+                [routerLink]="[link.RoutePath]" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                <i class="sidenav-link-icon" [class]="link.ClassName">
+                </i>
+                <span class="sidenav-link-text" *ngIf="collapsed">
+                    {{translate.currentLang=='ar'?link.NameAr:link.NameEn}}
+                </span>
+
+            </a>
+        </li>
+        <div>
+            <a [routerLink]="['/main/dental-chart']" class="social-media" style="font-size: 16px;font-weight: bold;">
+
+                <i class='fa fa-sm fa-opencart' style="margin-right:3px ;margin-left:3px">
+
+                    <span *ngIf="collapsed">
+                        {{translate.currentLang=='ar'?'Dental Chart':'Dental Chart'}}
+
+                    </span>
+                </i>
+
+            </a>
+        </div>
+        <!-- <div class="d-flex align-items-center justify-content-between">
+            <div>
+                <a class="social-media" href="#contact" style="font-size: 16px;font-weight: bold;">
+                    <i class='fa fa-sm fa-dashcube' (click)="wejiCooAction('Contact')"
+                        style="margin-right:3px ;margin-left:3px">
+                        <span *ngIf="collapsed">
+                            {{translate.currentLang=='ar'?'تواصل':'Contact'}}
+                        </span>
+                    </i>
+
+                </a>
+            </div>
+            <div>
+                <a href="#about-us" class="social-media" style="font-size: 16px;font-weight: bold;">
+
+                    <i class='fa fa-sm fa-opencart' style="margin-right:3px ;margin-left:3px">
+
+                        <span *ngIf="collapsed">
+                            {{translate.currentLang=='ar'?'عننا':'About'}}
+
+                        </span>
+                    </i>
+
+                </a>
+            </div>
+            <div>
+                <a [routerLink]="['/main']" class="social-media" style="font-size: 16px;font-weight: bold;">
+
+                    <i class='fa fa-sm fa-opencart' style="margin-right:3px ;margin-left:3px">
+
+                        <span *ngIf="collapsed">
+                            {{translate.currentLang=='ar'?'الرئيسية':'Home'}}
+
+                        </span>
+                    </i>
+
+                </a>
+            </div>
+
+
+        </div> -->
+        <!-- <div>
+            <div *ngIf="collapsed" style="margin-left: 8px;margin-right:8px">
+                <a class="social-media">
+                    <i class='fa fa-sm fa-facebook'></i>
+                    <i class='fa fa-sm fa-twitter'></i>
+                    <i class='fa fa-sm fa-linkedin-square'></i>
+                </a>
+            </div>
+
+        </div> -->
+    </ul>
+
+    <!-- footer -->
+
+</div>

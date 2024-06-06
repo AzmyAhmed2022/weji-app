@@ -1,0 +1,152 @@
+<div>
+
+    <div class="modal-header">
+        <div class="row">
+            <div class="col-2">
+                <button type="button" class="close pull-left" aria-label="Close" (click)="modalRef.hide()">
+                    <h4 aria-hidden="true">×</h4>
+                </button>
+            </div>
+        </div>
+        <div class="col-9">
+            <h4 class="modal-title pull-right">
+                {{translate.currentLang=='ar'?'طلبات':'Orders'}} {{translate.currentLang=='ar'?
+                CatObj.NameAr:
+                CatObj.NameEn}}</h4>
+        </div>
+
+
+    </div>
+
+    <!-- ----------------requests Area -->
+    <div class="justify-content-between" *ngFor="let request of UserRequestArr">
+        <div class="card" style="text-align: center;">
+            <div class="card-body">
+                <h5 class="card-title" style="text-align: center;">
+
+                    {{translate.currentLang=='ar'?"تفاصيل الطلب - ":"Order Detail - "}}
+                    {{translate.currentLang=='ar'? request.ClassAr:request.ClassEn}}
+
+                </h5>
+
+                <h5 class="card-title">
+                    <h5 style="float: left;">
+
+                        {{request.Serial}} : {{translate.currentLang=='ar'?"رقم الطلب":"Order"}} </h5>
+                    <h5 style="float: right;">
+                        {{request.CreateDate|date:"dd-MM-yyyy"}}:{{translate.currentLang=='ar'?"تاريخ الطلب":"Order
+                        Date"}}
+                    </h5>
+                </h5><br>
+                <p class="card-text">
+                    <span>
+                        {{translate.currentLang=='ar'?"وصف الطلب - ":"Order Description - "}}
+                        {{request.RequestDescription}}
+                    </span><br>
+                    <span>
+                        {{translate.currentLang=='ar'?"الوقت المتوقع للوصول -":"Expected Delivery Date -"}}
+
+                        {{request.ExpectedDeliverTime}}</span><br>
+                    <span>
+                        {{translate.currentLang=='ar'?"السعر المتوقع -":"Expected Price -"}}
+                        {{request.ExpectedPrice}}
+                    </span>
+                </p>
+                <h5>
+                    {{translate.currentLang=='ar'?"حالة الطلب":"Order Status"}} -
+                    {{translate.currentLang=='ar'? request.OrderStatusAr:request.OrderStatusEn}}
+                </h5><br>
+                <div class="row" *ngIf="request.ArrivalStatus!=1">
+                    <div class="col-4">
+                        <a class="btn d-inline-flex btn-sm btn-success border-base mx-1" style="color: white;"
+                            (click)="updateRequestArrivalStatus(request)">
+                            <span class=" pe-2">
+                                <i class="fa fa-sm fa-opencart"></i>
+                            </span>
+                            <span> {{translate.currentLang=='ar'?'وصل؟':'Arrive?'}}
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-8">
+
+                        <span>
+                            <input type="text" data-toggle="tooltip" [(ngModel)]="request.Notes" data-placement="bottom"
+                                placeholder="{{translate.currentLang=='ar'?'ملاحظات':'Notes'}}" id="form3Example3"
+                                class="form-control form-control-sm">
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- <div class="card  border-0 mb-7">
+
+        <div class="table-responsive">
+            <table class="table table-hover table-nowrap table table-condensed">
+                <thead class="">
+                    <tr>
+                        <th scope="col">{{translate.currentLang=='ar'?'#الطلب':'Order#'}}</th>
+                        <th scope="col">{{translate.currentLang=='ar'?'التصنيف':'Class'}}</th>
+                        <th scope="col">{{translate.currentLang=='ar'?'التفاصيل':'Detail'}}</th>
+
+                        <th scope="col">{{translate.currentLang=='ar'?'التاريخ':'Date'}}</th>
+                        <th scope="col">{{translate.currentLang=='ar'?'الحالة':'Status'}}</th>
+                        <th scope="col">{{translate.currentLang=='ar'?'السعر':'Price'}}</th>
+                        <th scope="col">{{translate.currentLang=='ar'?'تحديث':'Action'}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let request of UserRequestArr">
+                        <td>
+
+                            {{request.Serial}}
+                        </td>
+                        <td>
+                            {{translate.currentLang=='ar'? request.ClassAr:request.ClassEn}}
+                        </td>
+                        <td>
+                            {{request.Detail}}
+                        </td>
+                        <td>
+
+                            <a class="text-heading font-semibold">
+                                {{request.Date}}
+                            </a>
+                        </td>
+                        <td>
+                            <span class="badge badge-lg badge-dot">
+                                <i class="bg-success"></i>
+                                {{translate.currentLang=='ar'? request.StatusAr:request.StatusEn}}
+
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge badge-lg badge-dot">
+                                <i class="bg-danger"></i>{{request.Price}}
+                            </span>
+                        </td>
+
+                        <td>
+                            <a class="btn d-inline-flex btn-sm btn-neutral border-base mx-1"
+                                (click)="updateRequestStatus(1)">
+                                <span class=" pe-2">
+                                    <i class="fa fa-sm fa-opencart"></i>
+                                </span>
+                                <span> {{translate.currentLang=='ar'?'وصل؟':'Arrive?'}}
+
+                                </span>
+
+                            </a>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div> -->
+</div>

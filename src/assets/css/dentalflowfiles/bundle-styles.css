@@ -1,0 +1,4243 @@
+/*!
+ * FullCalendar v3.0.1 Stylesheet
+ * Docs & License: http://fullcalendar.io/
+ * (c) 2016 Adam Shaw
+ */
+
+
+.fc {
+	direction: ltr;
+	text-align: left;
+}
+
+.fc-rtl {
+	text-align: right;
+}
+
+body .fc { /* extra precedence to overcome jqui */
+	font-size: 1em;
+}
+
+
+/* Colors
+--------------------------------------------------------------------------------------------------*/
+
+.fc-unthemed th,
+.fc-unthemed td,
+.fc-unthemed thead,
+.fc-unthemed tbody,
+.fc-unthemed .fc-divider,
+.fc-unthemed .fc-row,
+.fc-unthemed .fc-content, /* for gutter border */
+.fc-unthemed .fc-popover,
+.fc-unthemed .fc-list-view,
+.fc-unthemed .fc-list-heading td {
+	border-color: #ddd;
+}
+
+.fc-unthemed .fc-popover {
+	background-color: #fff;
+}
+
+.fc-unthemed .fc-divider,
+.fc-unthemed .fc-popover .fc-header,
+.fc-unthemed .fc-list-heading td {
+	background: #eee;
+}
+
+.fc-unthemed .fc-popover .fc-header .fc-close {
+	color: #666;
+}
+
+.fc-unthemed .fc-today {
+	background: #fcf8e3;
+}
+
+.fc-highlight { /* when user is selecting cells */
+	background: #bce8f1;
+	opacity: .3;
+}
+
+.fc-bgevent { /* default look for background events */
+	background: rgb(143, 223, 130);
+	opacity: .3;
+}
+
+.fc-nonbusiness { /* default look for non-business-hours areas */
+	/* will inherit .fc-bgevent's styles */
+	background: #d7d7d7;
+}
+
+
+/* Icons (inline elements with styled text that mock arrow icons)
+--------------------------------------------------------------------------------------------------*/
+
+.fc-icon {
+	display: inline-block;
+	height: 1em;
+	line-height: 1em;
+	font-size: 1em;
+	text-align: center;
+	overflow: hidden;
+	font-family: "Courier New", Courier, monospace;
+
+	/* don't allow browser text-selection */
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	}
+
+/*
+Acceptable font-family overrides for individual icons:
+	"Arial", sans-serif
+	"Times New Roman", serif
+
+NOTE: use percentage font sizes or else old IE chokes
+*/
+
+.fc-icon:after {
+	position: relative;
+}
+
+.fc-icon-left-single-arrow:after {
+	content: "\02039";
+	font-weight: bold;
+	font-size: 200%;
+	top: -7%;
+}
+
+.fc-icon-right-single-arrow:after {
+	content: "\0203A";
+	font-weight: bold;
+	font-size: 200%;
+	top: -7%;
+}
+
+.fc-icon-left-double-arrow:after {
+	content: "\000AB";
+	font-size: 160%;
+	top: -7%;
+}
+
+.fc-icon-right-double-arrow:after {
+	content: "\000BB";
+	font-size: 160%;
+	top: -7%;
+}
+
+.fc-icon-left-triangle:after {
+	content: "\25C4";
+	font-size: 125%;
+	top: 3%;
+}
+
+.fc-icon-right-triangle:after {
+	content: "\25BA";
+	font-size: 125%;
+	top: 3%;
+}
+
+.fc-icon-down-triangle:after {
+	content: "\25BC";
+	font-size: 125%;
+	top: 2%;
+}
+
+.fc-icon-x:after {
+	content: "\000D7";
+	font-size: 200%;
+	top: 6%;
+}
+
+
+/* Buttons (styled <button> tags, normalized to work cross-browser)
+--------------------------------------------------------------------------------------------------*/
+
+.fc button {
+	/* force height to include the border and padding */
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+
+	/* dimensions */
+	margin: 0;
+	height: 2.1em;
+	padding: 0 .6em;
+
+	/* text & cursor */
+	font-size: 1em; /* normalize */
+	white-space: nowrap;
+	cursor: pointer;
+	text-transform: capitalize;
+}
+
+/* Firefox has an annoying inner border */
+.fc button::-moz-focus-inner { margin: 0; padding: 0; }
+	
+.fc-state-default { /* non-theme */
+	border: 1px solid;
+}
+
+.fc-state-default.fc-corner-left { /* non-theme */
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+}
+
+.fc-state-default.fc-corner-right { /* non-theme */
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+
+/* icons in buttons */
+
+.fc button .fc-icon { /* non-theme */
+	position: relative;
+	top: -0.05em; /* seems to be a good adjustment across browsers */
+	margin: 0 .2em;
+	vertical-align: middle;
+}
+	
+/*
+  button states
+  borrowed from twitter bootstrap (http://twitter.github.com/bootstrap/)
+*/
+
+.fc-state-default {
+	background-color: #f5f5f5;
+	background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+	background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+	background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+	background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+	background-repeat: repeat-x;
+	border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	color: #333;
+	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.fc-state-hover,
+.fc-state-down,
+.fc-state-active,
+.fc-state-disabled {
+	color: #333333;
+	background-color: #e6e6e6;
+}
+
+.fc-state-hover {
+	color: #333333;
+	text-decoration: none;
+	background-position: 0 -15px;
+	-webkit-transition: background-position 0.1s linear;
+	   -moz-transition: background-position 0.1s linear;
+	     -o-transition: background-position 0.1s linear;
+	        transition: background-position 0.1s linear;
+}
+
+.fc-state-down,
+.fc-state-active {
+	background-color: #cccccc;
+	background-image: none;
+	box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.fc-state-disabled {
+	cursor: default;
+	background-image: none;
+	opacity: 0.65;
+	box-shadow: none;
+}
+
+
+/* Buttons Groups
+--------------------------------------------------------------------------------------------------*/
+
+.fc-button-group {
+	display: inline-block;
+}
+
+/*
+every button that is not first in a button group should scootch over one pixel and cover the
+previous button's border...
+*/
+
+.fc .fc-button-group > * { /* extra precedence b/c buttons have margin set to zero */
+	float: left;
+	margin: 0 0 0 -1px;
+}
+
+.fc .fc-button-group > :first-child { /* same */
+	margin-left: 0;
+}
+
+
+/* Popover
+--------------------------------------------------------------------------------------------------*/
+
+.fc-popover {
+	position: absolute;
+	box-shadow: 0 2px 6px rgba(0,0,0,.15);
+}
+
+.fc-popover .fc-header { /* TODO: be more consistent with fc-head/fc-body */
+	padding: 2px 4px;
+}
+
+.fc-popover .fc-header .fc-title {
+	margin: 0 2px;
+}
+
+.fc-popover .fc-header .fc-close {
+	cursor: pointer;
+}
+
+.fc-ltr .fc-popover .fc-header .fc-title,
+.fc-rtl .fc-popover .fc-header .fc-close {
+	float: left;
+}
+
+.fc-rtl .fc-popover .fc-header .fc-title,
+.fc-ltr .fc-popover .fc-header .fc-close {
+	float: right;
+}
+
+/* unthemed */
+
+.fc-unthemed .fc-popover {
+	border-width: 1px;
+	border-style: solid;
+}
+
+.fc-unthemed .fc-popover .fc-header .fc-close {
+	font-size: .9em;
+	margin-top: 2px;
+}
+
+/* jqui themed */
+
+.fc-popover > .ui-widget-header + .ui-widget-content {
+	border-top: 0; /* where they meet, let the header have the border */
+}
+
+
+/* Misc Reusable Components
+--------------------------------------------------------------------------------------------------*/
+
+.fc-divider {
+	border-style: solid;
+	border-width: 1px;
+}
+
+hr.fc-divider {
+	height: 0;
+	margin: 0;
+	padding: 0 0 2px; /* height is unreliable across browsers, so use padding */
+	border-width: 1px 0;
+}
+
+.fc-clear {
+	clear: both;
+}
+
+.fc-bg,
+.fc-bgevent-skeleton,
+.fc-highlight-skeleton,
+.fc-helper-skeleton {
+	/* these element should always cling to top-left/right corners */
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+
+.fc-bg {
+	bottom: 0; /* strech bg to bottom edge */
+}
+
+.fc-bg table {
+	height: 100%; /* strech bg to bottom edge */
+}
+
+
+/* Tables
+--------------------------------------------------------------------------------------------------*/
+
+.fc table {
+	width: 100%;
+	box-sizing: border-box; /* fix scrollbar issue in firefox */
+	table-layout: fixed;
+	border-collapse: collapse;
+	border-spacing: 0;
+	font-size: 1em; /* normalize cross-browser */
+}
+
+.fc th {
+	text-align: center;
+}
+
+.fc th,
+.fc td {
+	border-style: solid;
+	border-width: 1px;
+	padding: 0;
+	vertical-align: top;
+}
+
+.fc td.fc-today {
+	border-style: double; /* overcome neighboring borders */
+}
+
+
+/* Internal Nav Links
+--------------------------------------------------------------------------------------------------*/
+
+a[data-goto] {
+	cursor: pointer;
+}
+
+a[data-goto]:hover {
+	text-decoration: underline;
+}
+
+
+/* Fake Table Rows
+--------------------------------------------------------------------------------------------------*/
+
+.fc .fc-row { /* extra precedence to overcome themes w/ .ui-widget-content forcing a 1px border */
+	/* no visible border by default. but make available if need be (scrollbar width compensation) */
+	border-style: solid;
+	border-width: 0;
+}
+
+.fc-row table {
+	/* don't put left/right border on anything within a fake row.
+	   the outer tbody will worry about this */
+	border-left: 0 hidden transparent;
+	border-right: 0 hidden transparent;
+
+	/* no bottom borders on rows */
+	border-bottom: 0 hidden transparent; 
+}
+
+.fc-row:first-child table {
+	border-top: 0 hidden transparent; /* no top border on first row */
+}
+
+
+/* Day Row (used within the header and the DayGrid)
+--------------------------------------------------------------------------------------------------*/
+
+.fc-row {
+	position: relative;
+}
+
+.fc-row .fc-bg {
+	z-index: 1;
+}
+
+/* highlighting cells & background event skeleton */
+
+.fc-row .fc-bgevent-skeleton,
+.fc-row .fc-highlight-skeleton {
+	bottom: 0; /* stretch skeleton to bottom of row */
+}
+
+.fc-row .fc-bgevent-skeleton table,
+.fc-row .fc-highlight-skeleton table {
+	height: 100%; /* stretch skeleton to bottom of row */
+}
+
+.fc-row .fc-highlight-skeleton td,
+.fc-row .fc-bgevent-skeleton td {
+	border-color: transparent;
+}
+
+.fc-row .fc-bgevent-skeleton {
+	z-index: 2;
+
+}
+
+.fc-row .fc-highlight-skeleton {
+	z-index: 3;
+}
+
+/*
+row content (which contains day/week numbers and events) as well as "helper" (which contains
+temporary rendered events).
+*/
+
+.fc-row .fc-content-skeleton {
+	position: relative;
+	z-index: 4;
+	padding-bottom: 2px; /* matches the space above the events */
+}
+
+.fc-row .fc-helper-skeleton {
+	z-index: 5;
+}
+
+.fc-row .fc-content-skeleton td,
+.fc-row .fc-helper-skeleton td {
+	/* see-through to the background below */
+	background: none; /* in case <td>s are globally styled */
+	border-color: transparent;
+
+	/* don't put a border between events and/or the day number */
+	border-bottom: 0;
+}
+
+.fc-row .fc-content-skeleton tbody td, /* cells with events inside (so NOT the day number cell) */
+.fc-row .fc-helper-skeleton tbody td {
+	/* don't put a border between event cells */
+	border-top: 0;
+}
+
+
+/* Scrolling Container
+--------------------------------------------------------------------------------------------------*/
+
+.fc-scroller {
+	-webkit-overflow-scrolling: touch;
+}
+
+/* TODO: move to agenda/basic */
+.fc-scroller > .fc-day-grid,
+.fc-scroller > .fc-time-grid {
+	position: relative; /* re-scope all positions */
+	width: 100%; /* hack to force re-sizing this inner element when scrollbars appear/disappear */
+}
+
+
+/* Global Event Styles
+--------------------------------------------------------------------------------------------------*/
+
+.fc-event {
+	position: relative; /* for resize handle and other inner positioning */
+	display: block; /* make the <a> tag block */
+	font-size: .85em;
+	line-height: 1.3;
+	border-radius: 3px;
+	border: 1px solid #3a87ad; /* default BORDER color */
+	font-weight: normal; /* undo jqui's ui-widget-header bold */
+}
+
+.fc-event,
+.fc-event-dot {
+	background-color: #3a87ad; /* default BACKGROUND color */
+}
+
+/* overpower some of bootstrap's and jqui's styles on <a> tags */
+.fc-event,
+.fc-event:hover,
+.ui-widget .fc-event {
+	color: #fff; /* default TEXT color */
+	text-decoration: none; /* if <a> has an href */
+}
+
+.fc-event[href],
+.fc-event.fc-draggable {
+	cursor: pointer; /* give events with links and draggable events a hand mouse pointer */
+}
+
+.fc-not-allowed, /* causes a "warning" cursor. applied on body */
+.fc-not-allowed .fc-event { /* to override an event's custom cursor */
+	cursor: not-allowed;
+}
+
+.fc-event .fc-bg { /* the generic .fc-bg already does position */
+	z-index: 1;
+	background: #fff;
+	opacity: .25;
+}
+
+.fc-event .fc-content {
+	position: relative;
+	z-index: 2;
+}
+
+/* resizer (cursor AND touch devices) */
+
+.fc-event .fc-resizer {
+	position: absolute;
+	z-index: 4;
+}
+
+/* resizer (touch devices) */
+
+.fc-event .fc-resizer {
+	display: none;
+}
+
+.fc-event.fc-allow-mouse-resize .fc-resizer,
+.fc-event.fc-selected .fc-resizer {
+	/* only show when hovering or selected (with touch) */
+	display: block;
+}
+
+/* hit area */
+
+.fc-event.fc-selected .fc-resizer:before {
+	/* 40x40 touch area */
+	content: "";
+	position: absolute;
+	z-index: 9999; /* user of this util can scope within a lower z-index */
+	top: 50%;
+	left: 50%;
+	width: 40px;
+	height: 40px;
+	margin-left: -20px;
+	margin-top: -20px;
+}
+
+
+/* Event Selection (only for touch devices)
+--------------------------------------------------------------------------------------------------*/
+
+.fc-event.fc-selected {
+	z-index: 9999 !important; /* overcomes inline z-index */
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.fc-event.fc-selected.fc-dragging {
+	box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
+}
+
+
+/* Horizontal Events
+--------------------------------------------------------------------------------------------------*/
+
+/* bigger touch area when selected */
+.fc-h-event.fc-selected:before {
+	content: "";
+	position: absolute;
+	z-index: 3; /* below resizers */
+	top: -10px;
+	bottom: -10px;
+	left: 0;
+	right: 0;
+}
+
+/* events that are continuing to/from another week. kill rounded corners and butt up against edge */
+
+.fc-ltr .fc-h-event.fc-not-start,
+.fc-rtl .fc-h-event.fc-not-end {
+	margin-left: 0;
+	border-left-width: 0;
+	padding-left: 1px; /* replace the border with padding */
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.fc-ltr .fc-h-event.fc-not-end,
+.fc-rtl .fc-h-event.fc-not-start {
+	margin-right: 0;
+	border-right-width: 0;
+	padding-right: 1px; /* replace the border with padding */
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+/* resizer (cursor AND touch devices) */
+
+/* left resizer  */
+.fc-ltr .fc-h-event .fc-start-resizer,
+.fc-rtl .fc-h-event .fc-end-resizer {
+	cursor: w-resize;
+	left: -1px; /* overcome border */
+}
+
+/* right resizer */
+.fc-ltr .fc-h-event .fc-end-resizer,
+.fc-rtl .fc-h-event .fc-start-resizer {
+	cursor: e-resize;
+	right: -1px; /* overcome border */
+}
+
+/* resizer (mouse devices) */
+
+.fc-h-event.fc-allow-mouse-resize .fc-resizer {
+	width: 7px;
+	top: -1px; /* overcome top border */
+	bottom: -1px; /* overcome bottom border */
+}
+
+/* resizer (touch devices) */
+
+.fc-h-event.fc-selected .fc-resizer {
+	/* 8x8 little dot */
+	border-radius: 4px;
+	border-width: 1px;
+	width: 6px;
+	height: 6px;
+	border-style: solid;
+	border-color: inherit;
+	background: #fff;
+	/* vertically center */
+	top: 50%;
+	margin-top: -4px;
+}
+
+/* left resizer  */
+.fc-ltr .fc-h-event.fc-selected .fc-start-resizer,
+.fc-rtl .fc-h-event.fc-selected .fc-end-resizer {
+	margin-left: -4px; /* centers the 8x8 dot on the left edge */
+}
+
+/* right resizer */
+.fc-ltr .fc-h-event.fc-selected .fc-end-resizer,
+.fc-rtl .fc-h-event.fc-selected .fc-start-resizer {
+	margin-right: -4px; /* centers the 8x8 dot on the right edge */
+}
+
+
+/* DayGrid events
+----------------------------------------------------------------------------------------------------
+We use the full "fc-day-grid-event" class instead of using descendants because the event won't
+be a descendant of the grid when it is being dragged.
+*/
+
+.fc-day-grid-event {
+	margin: 1px 2px 0; /* spacing between events and edges */
+	padding: 0 1px;
+}
+
+tr:first-child > td > .fc-day-grid-event {
+	margin-top: 2px; /* a little bit more space before the first event */
+}
+
+.fc-day-grid-event.fc-selected:after {
+	content: "";
+	position: absolute;
+	z-index: 1; /* same z-index as fc-bg, behind text */
+	/* overcome the borders */
+	top: -1px;
+	right: -1px;
+	bottom: -1px;
+	left: -1px;
+	/* darkening effect */
+	background: #000;
+	opacity: .25;
+}
+
+.fc-day-grid-event .fc-content { /* force events to be one-line tall */
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.fc-day-grid-event .fc-time {
+	font-weight: bold;
+}
+
+/* resizer (cursor devices) */
+
+/* left resizer  */
+.fc-ltr .fc-day-grid-event.fc-allow-mouse-resize .fc-start-resizer,
+.fc-rtl .fc-day-grid-event.fc-allow-mouse-resize .fc-end-resizer {
+	margin-left: -2px; /* to the day cell's edge */
+}
+
+/* right resizer */
+.fc-ltr .fc-day-grid-event.fc-allow-mouse-resize .fc-end-resizer,
+.fc-rtl .fc-day-grid-event.fc-allow-mouse-resize .fc-start-resizer {
+	margin-right: -2px; /* to the day cell's edge */
+}
+
+
+/* Event Limiting
+--------------------------------------------------------------------------------------------------*/
+
+/* "more" link that represents hidden events */
+
+a.fc-more {
+	margin: 1px 3px;
+	font-size: .85em;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+a.fc-more:hover {
+	text-decoration: underline;
+}
+
+.fc-limited { /* rows and cells that are hidden because of a "more" link */
+	display: none;
+}
+
+/* popover that appears when "more" link is clicked */
+
+.fc-day-grid .fc-row {
+	z-index: 1; /* make the "more" popover one higher than this */
+}
+
+.fc-more-popover {
+	z-index: 2;
+	width: 220px;
+}
+
+.fc-more-popover .fc-event-container {
+	padding: 10px;
+}
+
+
+/* Now Indicator
+--------------------------------------------------------------------------------------------------*/
+
+.fc-now-indicator {
+	position: absolute;
+	border: 0 solid red;
+}
+
+
+/* Utilities
+--------------------------------------------------------------------------------------------------*/
+
+.fc-unselectable {
+	-webkit-user-select: none;
+	 -khtml-user-select: none;
+	   -moz-user-select: none;
+	    -ms-user-select: none;
+	        user-select: none;
+	-webkit-touch-callout: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+
+
+/* Toolbar
+--------------------------------------------------------------------------------------------------*/
+
+.fc-toolbar {
+	text-align: center;
+	margin-bottom: 1em;
+}
+
+.fc-toolbar .fc-left {
+	float: left;
+}
+
+.fc-toolbar .fc-right {
+	float: right;
+}
+
+.fc-toolbar .fc-center {
+	display: inline-block;
+}
+
+/* the things within each left/right/center section */
+.fc .fc-toolbar > * > * { /* extra precedence to override button border margins */
+	float: left;
+	margin-left: .75em;
+}
+
+/* the first thing within each left/center/right section */
+.fc .fc-toolbar > * > :first-child { /* extra precedence to override button border margins */
+	margin-left: 0;
+}
+	
+/* title text */
+
+.fc-toolbar h2 {
+	margin: 0;
+	font-family: 'Lato', sans-serif;
+	font-style: normal;
+	font-weight: 900;
+	font-size: 18px;
+	color:#757575;
+}
+
+/* button layering (for border precedence) */
+
+.fc-toolbar button {
+	position: relative;
+}
+
+.fc-toolbar .fc-state-hover,
+.fc-toolbar .ui-state-hover {
+	z-index: 2;
+}
+	
+.fc-toolbar .fc-state-down {
+	z-index: 3;
+}
+
+.fc-toolbar .fc-state-active,
+.fc-toolbar .ui-state-active {
+	z-index: 4;
+}
+
+.fc-toolbar button:focus {
+	z-index: 5;
+}
+
+
+/* View Structure
+--------------------------------------------------------------------------------------------------*/
+
+/* undo twitter bootstrap's box-sizing rules. normalizes positioning techniques */
+/* don't do this for the toolbar because we'll want bootstrap to style those buttons as some pt */
+.fc-view-container *,
+.fc-view-container *:before,
+.fc-view-container *:after {
+	-webkit-box-sizing: content-box;
+	   -moz-box-sizing: content-box;
+	        box-sizing: content-box;
+}
+
+.fc-view, /* scope positioning and z-index's for everything within the view */
+.fc-view > table { /* so dragged elements can be above the view's main element */
+	position: relative;
+	z-index: 1;
+}
+
+
+
+/* BasicView
+--------------------------------------------------------------------------------------------------*/
+
+/* day row structure */
+
+.fc-basicWeek-view .fc-content-skeleton,
+.fc-basicDay-view .fc-content-skeleton {
+	/* there may be week numbers in these views, so no padding-top */
+	padding-bottom: 1em; /* ensure a space at bottom of cell for user selecting/clicking */
+}
+
+.fc-basic-view .fc-body .fc-row {
+	min-height: 4em; /* ensure that all rows are at least this tall */
+}
+
+/* a "rigid" row will take up a constant amount of height because content-skeleton is absolute */
+
+.fc-row.fc-rigid {
+	overflow: hidden;
+}
+
+.fc-row.fc-rigid .fc-content-skeleton {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+
+/* week and day number styling */
+
+.fc-day-top.fc-other-month {
+	opacity: 0.3;
+}
+
+.fc-basic-view .fc-week-number,
+.fc-basic-view .fc-day-number {
+	padding: 2px;
+}
+
+.fc-basic-view th.fc-week-number,
+.fc-basic-view th.fc-day-number {
+	padding: 0 2px; /* column headers can't have as much v space */
+}
+
+.fc-ltr .fc-basic-view .fc-day-top .fc-day-number { float: right; }
+.fc-rtl .fc-basic-view .fc-day-top .fc-day-number { float: left; }
+
+.fc-ltr .fc-basic-view .fc-day-top .fc-week-number { float: left; border-radius: 0 0 3px 0; }
+.fc-rtl .fc-basic-view .fc-day-top .fc-week-number { float: right; border-radius: 0 0 0 3px; }
+
+.fc-basic-view .fc-day-top .fc-week-number {
+	min-width: 1.5em;
+	text-align: center;
+	background-color: #f2f2f2;
+	color: #808080;
+}
+
+/* when week/day number have own column */
+
+.fc-basic-view td.fc-week-number {
+	text-align: center;
+}
+
+.fc-basic-view td.fc-week-number > * {
+	/* work around the way we do column resizing and ensure a minimum width */
+	display: inline-block;
+	min-width: 1.25em;
+}
+
+
+/* AgendaView all-day area
+--------------------------------------------------------------------------------------------------*/
+
+.fc-agenda-view .fc-day-grid {
+	position: relative;
+	z-index: 2; /* so the "more.." popover will be over the time grid */
+}
+
+.fc-agenda-view .fc-day-grid .fc-row {
+	min-height: 3em; /* all-day section will never get shorter than this */
+}
+
+.fc-agenda-view .fc-day-grid .fc-row .fc-content-skeleton {
+	padding-bottom: 1em; /* give space underneath events for clicking/selecting days */
+}
+
+
+/* TimeGrid axis running down the side (for both the all-day area and the slot area)
+--------------------------------------------------------------------------------------------------*/
+
+.fc .fc-axis { /* .fc to overcome default cell styles */
+	vertical-align: middle;
+	padding: 0 4px;
+	white-space: nowrap;
+}
+
+.fc-ltr .fc-axis {
+	text-align: right;
+}
+
+.fc-rtl .fc-axis {
+	text-align: left;
+}
+
+.ui-widget td.fc-axis {
+	font-weight: normal; /* overcome jqui theme making it bold */
+}
+
+
+/* TimeGrid Structure
+--------------------------------------------------------------------------------------------------*/
+
+.fc-time-grid-container, /* so scroll container's z-index is below all-day */
+.fc-time-grid { /* so slats/bg/content/etc positions get scoped within here */
+	position: relative;
+	z-index: 1;
+}
+
+.fc-time-grid {
+	min-height: 100%; /* so if height setting is 'auto', .fc-bg stretches to fill height */
+}
+
+.fc-time-grid table { /* don't put outer borders on slats/bg/content/etc */
+	border: 0 hidden transparent;
+}
+
+.fc-time-grid > .fc-bg {
+	z-index: 1;
+}
+
+.fc-time-grid .fc-slats,
+.fc-time-grid > hr { /* the <hr> AgendaView injects when grid is shorter than scroller */
+	position: relative;
+	z-index: 2;
+}
+
+.fc-time-grid .fc-content-col {
+	position: relative; /* because now-indicator lives directly inside */
+}
+
+.fc-time-grid .fc-content-skeleton {
+	position: absolute;
+	z-index: 3;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+
+/* divs within a cell within the fc-content-skeleton */
+
+.fc-time-grid .fc-business-container {
+	position: relative;
+	z-index: 1;
+}
+
+.fc-time-grid .fc-bgevent-container {
+	position: relative;
+	z-index: 2;
+}
+
+.fc-time-grid .fc-highlight-container {
+	position: relative;
+	z-index: 3;
+}
+
+.fc-time-grid .fc-event-container {
+	position: relative;
+	z-index: 4;
+}
+
+.fc-time-grid .fc-now-indicator-line {
+	z-index: 5;
+}
+
+.fc-time-grid .fc-helper-container { /* also is fc-event-container */
+	position: relative;
+	z-index: 6;
+}
+
+
+/* TimeGrid Slats (lines that run horizontally)
+--------------------------------------------------------------------------------------------------*/
+
+.fc-time-grid .fc-slats td {
+	height: 35px;
+	border-bottom: 0; /* each cell is responsible for its top border */
+}
+
+.fc-time-grid .fc-slats .fc-minor td {
+	border-top-style: dotted;
+}
+
+.fc-time-grid .fc-slats .ui-widget-content { /* for jqui theme */
+	background: none; /* see through to fc-bg */
+}
+
+
+/* TimeGrid Highlighting Slots
+--------------------------------------------------------------------------------------------------*/
+
+.fc-time-grid .fc-highlight-container { /* a div within a cell within the fc-highlight-skeleton */
+	position: relative; /* scopes the left/right of the fc-highlight to be in the column */
+}
+
+.fc-time-grid .fc-highlight {
+	position: absolute;
+	left: 0;
+	right: 0;
+	/* top and bottom will be in by JS */
+}
+
+
+/* TimeGrid Event Containment
+--------------------------------------------------------------------------------------------------*/
+
+.fc-ltr .fc-time-grid .fc-event-container { /* space on the sides of events for LTR (default) */
+	margin: 0 2.5% 0 2px;
+}
+
+.fc-rtl .fc-time-grid .fc-event-container { /* space on the sides of events for RTL */
+	margin: 0 2px 0 2.5%;
+}
+
+.fc-time-grid .fc-event,
+.fc-time-grid .fc-bgevent {
+	position: absolute;
+	z-index: 1; /* scope inner z-index's */
+}
+
+.fc-time-grid .fc-bgevent {
+	/* background events always span full width */
+	left: 0;
+	right: 0;
+}
+
+
+/* Generic Vertical Event
+--------------------------------------------------------------------------------------------------*/
+
+.fc-v-event.fc-not-start { /* events that are continuing from another day */
+	/* replace space made by the top border with padding */
+	border-top-width: 0;
+	padding-top: 1px;
+
+	/* remove top rounded corners */
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.fc-v-event.fc-not-end {
+	/* replace space made by the top border with padding */
+	border-bottom-width: 0;
+	padding-bottom: 1px;
+
+	/* remove bottom rounded corners */
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+
+/* TimeGrid Event Styling
+----------------------------------------------------------------------------------------------------
+We use the full "fc-time-grid-event" class instead of using descendants because the event won't
+be a descendant of the grid when it is being dragged.
+*/
+
+.fc-time-grid-event {
+	overflow: hidden; /* don't let the bg flow over rounded corners */
+}
+
+.fc-time-grid-event.fc-selected {
+	/* need to allow touch resizers to extend outside event's bounding box */
+	/* common fc-selected styles hide the fc-bg, so don't need this anyway */
+	overflow: visible;
+}
+
+.fc-time-grid-event.fc-selected .fc-bg {
+	display: none; /* hide semi-white background, to appear darker */
+}
+
+.fc-time-grid-event .fc-content {
+	overflow: hidden; /* for when .fc-selected */
+}
+
+.fc-time-grid-event .fc-time,
+.fc-time-grid-event .fc-title {
+	padding: 0 1px;
+}
+
+.fc-time-grid-event .fc-time {
+	font-size: .85em;
+	white-space: nowrap;
+}
+
+/* short mode, where time and title are on the same line */
+
+.fc-time-grid-event.fc-short .fc-content {
+	/* don't wrap to second line (now that contents will be inline) */
+	white-space: nowrap;
+}
+
+.fc-time-grid-event.fc-short .fc-time,
+.fc-time-grid-event.fc-short .fc-title {
+	/* put the time and title on the same line */
+	display: inline-block;
+	vertical-align: top;
+}
+
+.fc-time-grid-event.fc-short .fc-time span {
+	display: none; /* don't display the full time text... */
+}
+
+.fc-time-grid-event.fc-short .fc-time:before {
+	content: attr(data-start); /* ...instead, display only the start time */
+}
+
+.fc-time-grid-event.fc-short .fc-time:after {
+	content: "\000A0-\000A0"; /* seperate with a dash, wrapped in nbsp's */
+}
+
+.fc-time-grid-event.fc-short .fc-title {
+	font-size: .85em; /* make the title text the same size as the time */
+	padding: 0; /* undo padding from above */
+}
+
+/* resizer (cursor device) */
+
+.fc-time-grid-event.fc-allow-mouse-resize .fc-resizer {
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 8px;
+	overflow: hidden;
+	line-height: 8px;
+	font-size: 11px;
+	font-family: monospace;
+	text-align: center;
+	cursor: s-resize;
+}
+
+.fc-time-grid-event.fc-allow-mouse-resize .fc-resizer:after {
+	content: "=";
+}
+
+/* resizer (touch device) */
+
+.fc-time-grid-event.fc-selected .fc-resizer {
+	/* 10x10 dot */
+	border-radius: 5px;
+	border-width: 1px;
+	width: 8px;
+	height: 8px;
+	border-style: solid;
+	border-color: inherit;
+	background: #fff;
+	/* horizontally center */
+	left: 50%;
+	margin-left: -5px;
+	/* center on the bottom edge */
+	bottom: -5px;
+}
+
+
+/* Now Indicator
+--------------------------------------------------------------------------------------------------*/
+
+.fc-time-grid .fc-now-indicator-line {
+	border-top-width: 1px;
+	left: 0;
+	right: 0;
+}
+
+/* arrow on axis */
+
+.fc-time-grid .fc-now-indicator-arrow {
+	margin-top: -5px; /* vertically center on top coordinate */
+}
+
+.fc-ltr .fc-time-grid .fc-now-indicator-arrow {
+	left: 0;
+	/* triangle pointing right... */
+	border-width: 5px 0 5px 6px;
+	border-top-color: transparent;
+	border-bottom-color: transparent;
+}
+
+.fc-rtl .fc-time-grid .fc-now-indicator-arrow {
+	right: 0;
+	/* triangle pointing left... */
+	border-width: 5px 6px 5px 0;
+	border-top-color: transparent;
+	border-bottom-color: transparent;
+}
+
+
+
+/* List View
+--------------------------------------------------------------------------------------------------*/
+
+/* possibly reusable */
+
+.fc-event-dot {
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border-radius: 5px;
+}
+
+/* view wrapper */
+
+.fc-rtl .fc-list-view {
+	direction: rtl; /* unlike core views, leverage browser RTL */
+}
+
+.fc-list-view {
+	border-width: 1px;
+	border-style: solid;
+}
+
+/* table resets */
+
+.fc .fc-list-table {
+	table-layout: auto; /* for shrinkwrapping cell content */
+}
+
+.fc-list-table td {
+	border-width: 1px 0 0;
+	padding: 8px 14px;
+}
+
+.fc-list-table tr:first-child td {
+	border-top-width: 0;
+}
+
+/* day headings with the list */
+
+.fc-list-heading {
+	border-bottom-width: 1px;
+}
+
+.fc-list-heading td {
+	font-weight: bold;
+}
+
+.fc-ltr .fc-list-heading-main { float: left; }
+.fc-ltr .fc-list-heading-alt { float: right; }
+
+.fc-rtl .fc-list-heading-main { float: right; }
+.fc-rtl .fc-list-heading-alt { float: left; }
+
+/* event list items */
+
+.fc-list-item.fc-has-url {
+	cursor: pointer; /* whole row will be clickable */
+}
+
+.fc-list-item td {
+	background-color: #ffffff;
+	color: #000000;
+}
+
+.fc-list-item:hover td {
+	cursor: pointer;
+}
+
+.fc-list-item-marker,
+.fc-list-item-time {
+	white-space: nowrap;
+	width: 1px;
+}
+
+/* make the dot closer to the event title */
+.fc-ltr .fc-list-item-marker { padding-right: 0; }
+.fc-rtl .fc-list-item-marker { padding-left: 0; }
+
+.fc-list-item-title a {
+	/* every event title cell has an <a> tag */
+	text-decoration: none;
+	color: inherit;
+}
+
+.fc-list-item-title a[href]:hover {
+	/* hover effect only on titles with hrefs */
+	text-decoration: underline;
+}
+
+/* message when no events */
+
+.fc-list-empty-wrap2 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.fc-list-empty-wrap1 {
+	width: 100%;
+	height: 100%;
+	display: table;
+}
+
+.fc-list-empty {
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.fc-unthemed .fc-list-empty { /* theme will provide own background */
+	background-color: #eee;
+}
+
+.actions-calendar .calendar-next>i,
+.actions-calendar .calendar-prev>i {
+    font-size: 25px;
+    position: relative;
+    top: 2px
+}
+.event-tag>span {
+    width: 30px;
+    height: 30px;
+    margin: 0 0 3px;
+    position: relative;
+    display: inline-block;
+    vertical-align: top
+}
+.event-tag>span.color-tag__default {
+    border: 1px solid #eee;
+    background-color: #fff!important
+}
+.event-tag>span.color-tag__default>i:before {
+    color: #333
+}
+.event-tag>span,
+.event-tag>span>i {
+    -webkit-transition: all;
+    -o-transition: all;
+    transition: all;
+    -webkit-transition-duration: .2s;
+    transition-duration: .2s
+}
+
+.event-tag>span:hover {
+    opacity: .8;
+    filter: alpha(opacity=80)
+}
+.event-tag>span>i {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 4px 0 0 7px;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    -webkit-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
+    transform: scale(0)
+}
+.event-tag>span>i:before {
+    content: '\f26b';
+    font-family: Material-Design-Iconic-Font;
+    color: #fff;
+    font-size: 16px;
+    z-index: 1
+}
+
+
+.fc button,
+.fc table {
+    background: 0 0;
+    outline: none;
+}
+.fc th {
+    font-weight: 500;
+    padding: 12px 12px 10px;
+    text-transform: uppercase
+}
+.fc table tr>td:first-child {
+    border-left-width: 0
+}
+.fc .fc-left button {
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+    font-size: 20px;
+    line-height: 28px;
+    text-transform: capitalize;
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%!important;
+    color: #333;
+    -webkit-transition: all;
+    -o-transition: all;
+    transition: all;
+    -webkit-transition-duration: 250ms;
+    transition-duration: 250ms
+}
+
+
+.fc button:hover {
+    background-color: #eee
+}
+.fc div.fc-row {
+    margin-right: 0;
+    border: 0
+}
+.fc-unthemed .fc-today {
+    color: #FFC107;
+    background-color: transparent
+}
+.fc-toolbar {
+    margin-bottom: 0;
+    padding: 15px 20px;
+    position: relative
+}
+.fc-toolbar h2 {
+    margin-top: 7px
+}
+.fc-event {
+    padding: 0;
+    font-size: 11px;
+    border-radius: 2px;
+    border: 0
+}
+.fc-event .fc-title {
+    padding: 2px 8px;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+.fc-event .fc-time {
+    float: left;
+    background: rgba(0, 0, 0, .2);
+    padding: 2px 6px;
+    margin: 0 0 0 -1px
+}
+.fc-view,
+.fc-view>table {
+    border: 0;
+    overflow: hidden
+}
+.fc-view>table>tbody>tr .ui-widget-content {
+    border-top: 0
+}
+hr.fc-divider {
+    border-width: 1px;
+    border-color: #eee
+}
+.fc-day-grid-container.fc-scroller {
+    height: auto!important;
+    overflow: hidden!important
+}
+
+#calendar-widget th {
+    border-color: transparent
+}
+
+#calendar-widget .fc-toolbar h2 {
+    font-size: 16px
+}
+#calendar-widget .fc-day-number {
+    text-align: center;
+    width: 100%
+}
+#calendar-widget .fc-day-grid-event {
+    margin: 1px 3px
+}
+#calendar-widget .ui-widget-header,
+#calendar-widget .ui-widget-header th {
+    border-width: 0
+}
+
+
+#calendar-widget .fc-view:not(.fc-listWeek-view) .event-reserved,
+#calendar-widget .fc-listWeek-view .event-reserved .fc-event-dot {
+	/* background: #03a9f4;*/
+}
+#calendar-widget .fc-view:not(.fc-listWeek-view) .event-canceled,
+#calendar-widget .fc-listWeek-view .event-canceled .fc-event-dot {
+	/* background: #fbbc05;*/
+	opacity: .6;
+}
+#calendar-widget .fc-view:not(.fc-listWeek-view) .event-noshow,
+#calendar-widget .fc-listWeek-view .event-noshow .fc-event-dot {
+	background-image: repeating-linear-gradient(45deg,transparent,transparent 10px,rgba(255,255,255,.3) 10px,rgba(255,255,255,.3) 20px) !important;
+}
+
+
+#calendar-widget .fc-view:not(.fc-listWeek-view) .personal-event,
+#calendar-widget .fc-listWeek-view .personal-event .fc-event-dot {
+    background: #8a8a8a;
+}
+
+.calendar-bottom-sheet .md-grid-item-content {
+  height: 90px;
+  padding-top: 10px; 
+}
+
+.calendar-bottom-sheet .md-grid-item-content md-icon {
+  height: 48px;
+  width: 48px; 
+}
+
+.bottomSheetdemoBasicUsage .md-grid-text {
+  padding-bottom: 5px; 
+}
+
+.calendar-bottom-sheet h2 {
+  line-height: 36px;
+  padding-top: 10px; 
+}
+
+.calendar-bottom-sheet .md-subheader .md-subheader-inner {
+  padding: 0; 
+}
+.calendar-notes {
+	position: relative;
+}
+
+.calendar-notes .notes-date {
+	font-size: 11px;
+    color: #818181;
+    float: right;
+    position: absolute;
+    right: 15px;
+    bottom: -12px;
+}
+
+.calendar-add-panel-container {
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2),
+      0 13px 19px 2px rgba(0, 0, 0, 0.14),
+      0 5px 24px 4px rgba(0, 0, 0, 0.12);
+  width: 256px;
+}
+
+.calendar-add-panel-item {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  height: 48px;
+  padding: 0 16px;
+  position: relative;
+  transition: background 0.15s linear;
+  width: auto;
+}
+
+.calendar-add-panel-item:hover,
+.calendar-add-panel-item:focus {
+  background-color: rgb(238, 238, 238);
+}
+
+.calendar-add-panel-item.selected {
+  color: rgb(16, 108, 200);
+}
+
+.unchecked-doctor {
+	background: white !important;
+    color: black !important;
+    border-bottom: 1px solid #e1e0e0;
+}
+
+.fc-content .fc-time {
+	display: block;
+	width: 100%;
+	float:none;
+}
+
+#calendarSideNav md-calendar {
+	font-size: 13px;
+}
+
+#calendarSideNav  .md-calendar-date-selection-indicator {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+}
+
+#calendarSideNav .md-calendar-date {
+    width: 32px;
+}
+
+#calendarSideNav .md-calendar-day-header th:last-child {
+    padding-right: 8px;
+}
+
+#calendarSideNav .md-calendar-day-header th:first-child {
+	padding-left: 8px;
+}
+
+#calendarSideNav .md-calendar-day-header th {
+    width: 34px;
+}
+#calendarSideNav .md-calendar-month-label {
+    height: 34px;
+    font-size: 13px;
+}
+#calendarSideNav .md-calendar-scroll-container {
+    width: 255px;
+}
+#calendarSideNav .md-calendar-scroll-mask {
+    height: 235px;
+}
+
+.fc-resource-cell, .fc-day-header, .fc-widget-header {
+	/* border: 1px solid #dddddd !important; */
+	border-bottom: 1px solid #dddddd !important;
+}
+
+.agenda-note-icon {
+	color: white;
+	position: absolute;
+	top: -4px;
+	right: 0;
+}
+body {
+  font-family: 'Lato', sans-serif;
+}
+
+.main-content{
+	min-height: 570px !important;
+	height: 100%;
+	overflow: auto;
+}
+
+.no-outline{
+  outline: none;
+}
+
+.offline-mode .hide-offline {
+	display: none !important;
+	visibility: hidden !important;
+}
+
+
+
+.full-height{
+	height: 500px;
+}
+
+.min-width-400{
+   min-width: 400px;
+}
+
+.overflow-hidden{
+    overflow: hidden;
+}
+
+.background-color-grey{
+    background-color: rgb(219, 219, 219);
+}
+
+.no-wrap{
+    white-space: nowrap;
+}
+
+.text-hover{
+  cursor: pointer;
+}
+
+.pointer{
+  cursor:pointer;
+}
+
+.margin-button{
+  margin: auto!important;
+}
+
+#accordion{
+    height: 56px;
+}
+
+#sub-nav{
+    max-width: 100px !important;
+    max-height: 240px;
+    min-width: 100px;
+    background: rgb(2, 136, 209);
+    color:rgb(255,255,255);
+}
+
+#sub-nav .navLink {
+    padding: 0px;
+    text-align: center;
+    height: 80px;
+    /*border-bottom: 1px solid rgba(204, 255, 144, 0.46);*/
+    margin-top: -6px;
+}
+
+.sub-nav-active{
+    background:rgba(0, 0, 0, 0.13)
+}
+
+.sub-nav-icon{
+    color:rgb(255,255,255);
+    margin-top: 20px;
+}
+
+.upload-form{
+    min-height: 200px;
+}
+
+.zero-padding-margin {
+    padding: 0;
+    margin: 0;
+}
+
+.icon-size-36 {
+    height: 36px !important;
+    width: 36px !important;
+}
+
+.min-height-150 {
+    min-height: 150px;
+}
+
+.input-container .md-errors-spacer{
+    display: none;
+}
+
+md-toolbar:not(.md-menu-toolbar) md-icon{
+    fill: currentColor;
+}
+
+.paginator-page{
+    color: rgba(0,0,0,0.54);
+}
+
+.paginator-page:hover{
+    color: rgba(0,0,0,1);
+    cursor: pointer;
+}
+
+.page-active{
+    color: rgba(0,0,0,1);
+}
+
+.panel-widget-toolbar{
+  margin: 0;
+  min-height: 40px !important;
+}
+
+.panel-widget{
+  background-color: white;
+}
+
+.chart-header{
+  background-color: #03a9f4;
+  color: white;
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+}
+/*############################################### height classes ########################################*/
+.height-40{
+  height: 40px;
+}
+
+/*############################################### margin classes ########################################*/
+.margin-bottom-20 {
+    margin-bottom: 20px !important;
+}
+
+.margin-zero{
+  margin:0 !important;
+}
+
+.margin-bottom-5{
+    margin-bottom: 5px !important;
+}
+
+.content-margin{
+    margin-top: 50px;
+}
+
+.margin-top-41{
+  margin-top:41px;
+}
+
+.margin-top-100{
+  margin-top: 100px;
+}
+
+.margin-4{
+  margin:4px;
+}
+
+.margin-2{
+  margin:2px;
+}
+
+.margin-top-5{
+  margin-top:5px!important;
+}
+
+.margin-top-10{
+  margin-top:10px;
+}
+
+.margin-top-8{
+  margin-top:8px!important;
+}
+.margin-left-5{
+  margin-left: 5px!important;
+}
+
+.margin-left-10{
+  margin-left: 10px!important;
+}
+
+.margin-left-45{
+  margin-left: 45px!important;
+}
+
+.margin-right-10{
+  margin-right: -10px!important;
+}
+
+.margin-right-p-10{
+  margin-right: 10px!important;
+}
+
+/*##################################### color classes ###########################3#####*/
+.color-orange{
+    color:#FBBC05!important;
+}
+
+.color-red {
+    color:#fb0505!important;
+}
+
+.color-green {
+    color:#07be5c!important;
+}
+
+.color-blue{
+    color:#03a9f4!important;
+}
+
+.background-blue{
+    background: #03a9f4!important;
+    color: white !important;
+}
+
+.background-gray {
+    background: #a3b4bc!important;
+    color: white !important;
+}
+
+.background-orange{
+  background:#FBBC05!important;
+}
+
+.divider-orange{
+    background:#FBBC05!important;
+}
+
+.divider-blue{
+  background:#03a9f4!important;
+}
+
+.bd-gray{
+  background-color: #575655;
+  border:1px solid #ffffff;
+}
+
+.bd-orange{
+  background-color: #FBBC05;
+  border:1px solid #ffffff;
+}
+
+.bd-white{
+  background-color: white!important;
+}
+
+.fill-white{
+  color:#ffffff;
+}
+
+.fill-done{
+  color:#03a9f4
+}
+
+.fill-exOth{
+  color:#00ff9e
+}
+
+.fill-tbd{
+  fill:#b3e5fc
+}
+.not-visible {
+	visibility: hidden;
+}
+
+/*#######################################   toasts style Classes   #################################*/
+md-toast.md-success-toast-theme .md-toast-content {
+    background-color: #4CAF50;
+}
+
+md-toast.md-warn-toast-theme .md-toast-content {
+    background-color: #ff1100;
+}
+
+/*#########################################    font classes    #########################################*/
+.lato-txt-16{
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color:#757575!important;
+}
+
+.md-autocomplete-margins md-input-container{
+   margin:0;
+}
+
+.lato-txt-13{
+  font-family: lato, sans-serif; 
+  font-size: 13px;
+  font-weight: 500;
+}
+
+ .input-hint {
+    position: absolute;
+    left: 2px;
+    right: auto;
+    bottom: 7px;
+    font-size: 12px;
+    line-height: 14px;;
+    color: grey; 
+  }
+
+  .white-progress path {
+    stroke: white !important;
+    stroke-width: 8px !important;
+  }
+
+.no-padding {
+  padding: 0 !important
+}
+
+.position-fixed {
+	position: fixed !important;
+}
+
+.simple-link-button {
+	margin: 0;
+    /* padding: 0; */
+    font-size: 13px;
+    min-width: initial;
+}
+.timeline-badge  {
+
+}
+.timeline-badge md-icon {
+	margin-top: -4px;
+	fill: white;
+	width: 36px;
+	height: 36px;
+}
+
+
+.timeline-side-panel {
+	position: relative;
+	float:left;
+	padding-left: 40px;
+	width: calc(50% - 40px);
+    width: -moz-calc(50% - 40px);
+    width: -webkit-calc(50% - 40px);
+}
+.timeline-inverted .timeline-side-panel {
+	float:right;
+	padding-left: 0;
+	padding-right: 40px;
+}
+.timeline-side-panel .side-body {
+	padding:12px;
+}
+.timeline-side-panel div[layout-padding] {
+	padding:3px;
+}
+
+.reset-panel-button {
+	position: absolute;
+	right: 0;
+	top:0;
+}
+
+md-dialog.fullscreen-dialog {
+  	max-width: 100%;
+    max-height: 100%;
+}
+
+@keyframes blinker {  
+  50% { opacity: 0; }
+}
+
+.inline-table-date .md-datepicker-button{
+  display: none;
+}
+
+.inline-table-date{
+  margin: 0!important;
+  padding: 0!important;
+  height: 20px;
+}
+
+.inline-table-date .md-datepicker-input{
+  margin: -5px 0!important;
+  padding: 0!important;
+  border: 0;
+}
+
+.inline-table-date .md-button.md-icon-button{
+  margin : 0 40px;
+}
+
+.inline-table-date  .md-icon-button+.md-datepicker-input-container {
+	margin-left: 0;
+}
+
+
+md-list-item.logged-clinic {
+    color: #03a8f4;
+}
+
+.green-icon {
+	color: #07be5c;
+}
+.yellow-icon {
+	color: #ffc107;
+}
+.red-icon {
+	color: #ff5722;
+}
+.auto-height {
+	height: auto;
+}
+
+.selector-hide {
+	display: none;
+/*		-webkit-transition: all 0.5s linear;
+		-moz-transition: all 0.5s linear;
+		-o-transition: all 0.5s linear;
+		transition: all 0.5s linear;
+		overflow: hidden !important;
+		height: 0 !important;
+		width: 0 !important;
+		min-height: 0 !important;
+		min-width: 0 !important;
+		padding: 0 !important;
+		margin: 0 !important;*/
+}
+
+.selectors-added .content-margin.application-wraper {
+	margin-top: 0;
+}
+
+md-input-container.no-spacer .md-errors-spacer {
+	display: none;
+}
+
+tr.blue-row {
+	background: #9addfb;
+}
+
+tr.blue-row:hover {
+	background: #80cef1 !important;
+}
+
+.mimic-input > small {
+	color: #747474;
+	font-size: 12px;
+}
+.mimic-input > div {
+	color: rgba(0,0,0,0.87);
+	margin: 7px 4px;
+}
+
+.mobile-overlay {
+	display: none;
+}
+
+@media (max-width: 800px) {
+	.hide-mobile {
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	.mobile-overlay {
+		display: block;
+		padding: 10px 20px;
+		font-size: 20px;
+	    background: #04a9f4;
+	    z-index: 999;
+	    color: white;
+	}
+
+	.itunes-apple {
+	    display: inline-block;
+	    overflow: hidden;
+	    background: url(//linkmaker.itunes.apple.com/assets/shared/badges/en-us/appstore-lrg.svg) no-repeat;
+	    width: 135px;
+	    height: 40px;
+	    background-size: contain;
+	}
+}
+
+
+
+
+
+.login-header{
+  min-height: 300px;
+  background-color:rgba(0, 150, 136, 0.65)
+
+}
+
+.login-header-txt{
+  font-family: 'Lato', sans-serif;
+  font-style: normal;
+  font-weight: 900;
+  color: #ffffff;  
+  font-size: 30px;
+}
+
+.login-container{
+  background-color:#575655!important;
+  max-width: 30%;
+  height: 300px;
+}
+
+.login-text{
+  font-family: 'Lato', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  color: #ffffff;  
+  font-size: 12px;
+}
+
+.login-input-label{
+  margin-left:25px; 
+  margin-bottom:2px; 
+  color:#FBBC05!important;
+  font-family: 'Lato', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+}
+
+.login-orange{
+  color:#FBBC05!important;
+}
+
+.login-input-container{
+    width: 300px;
+    height: 25px;
+    border: 1px solid gray;
+    outline:none;
+    padding: 3px;
+}
+
+
+.login-text-org{
+  color:#FBBC05!important;
+  font-family: 'Lato', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+}
+
+
+.login-office-img{
+    overflow: hidden;
+    position: absolute;
+    margin-top: -23%;
+    margin-left: -52%;
+    width: 37%;
+}
+
+.top-nav-title {
+    margin-top: 15px;
+    color: #03a9f4;
+    font-family: 'Lato', sans-serif;
+    font-weight: 900;
+}
+
+.total-billing-row {
+	background: #ececec;
+}
+
+.hint {
+    left: 2px;
+    right: auto;
+    bottom: 7px;
+    font-size: 12px;
+    line-height: 14px;
+    color: grey; 
+}
+
+.billing-summary-holder {
+	/*box-shadow: 0 2px 1px -1px rgba(0,0,0,.12);*/
+}
+
+.billing-summary-box {
+	border: 1px solid rgba(0,0,0,.12);
+	padding: 10px;
+	color:gray;
+}
+
+.billing-summary-box:nth-child(n+2) {
+	border-left: none;
+}
+
+.billing-summary-box .title {
+	margin-bottom: 8px;
+}
+.billing-summary-box .section {
+	margin-bottom: 8px;
+}
+
+.billing-summary-box .section.final  {
+	margin-top: 10px;
+}
+
+.billing-summary-box .section .section-title {
+	margin-bottom: 0;
+	text-align: center;
+}
+
+.billing-summary-box .section .section-value {
+	width: 145px;
+	font-size: 18px;
+    color: #4c4c4c;
+}
+
+.billing-summary-box .section .section-value:nth-child(n+2) {
+	text-align: right;
+}
+
+
+.billing-summary-box .section.final .section-value {
+	font-size: 20px;
+	font-weight: bold;
+}
+.sms-config-container .dnd-list,
+.sms-config-container .dnd-list > .sms-item {
+    position: relative;
+}
+
+.sms-config-container .dnd-list {
+    min-width: 200px;
+    min-height: 42px;
+    padding-left: 0px;
+    background: lightgray;
+}
+
+.sms-config-container .dndDraggingSource {
+    opacity: 0.2;
+}
+
+.sms-config-container .dndPlaceholder {
+    display: block;
+    background: #ddd;
+    min-height: 42px;
+}
+
+.sms-config-container .sms-item {
+    background: #fff;
+    border: 1px solid #ddd;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    vertical-align: top;
+    height: 22px;
+}
+
+.sms-config-container .sms-item.dndDragging {
+    background: #dff0d8;
+    color: green;
+}
+
+.dnd-list.sms-real-message-holder {
+    width: 100%;
+    min-height: 100px;
+    background: #efefef;
+}
+
+.dnd-list.sms-real-message-holder> .sms-item {
+    display: inline-block;
+    height: 25px;
+    margin: 2px;
+}
+
+.dnd-list.sms-real-message-holder .dndPlaceholder {
+    display: inline-block;
+    vertical-align: top;
+    background: #ddd;
+    min-height: 25px;
+    height: 25px;
+    margin:2px;
+    min-width: 60px;
+    padding: 10px 15px;
+}
+
+.input-sms {
+    width: 80%;
+    margin-left: 10px;
+    /* padding: 0px 1px;*/
+}
+
+.sms-config-container  .sms-appointment-background {
+    background: rgb(154, 224, 251);
+}
+
+.sms-config-container  .sms-patient-background {
+    background: rgb(160, 228, 162);
+}
+
+.sms-config-container .sms-greeting-background {
+    background: white;
+}
+
+.table-upper-header {
+    background: white;
+    margin-left: 8px;
+    box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.14), 0px -1px 1px 0px rgba(0, 0, 0, 0.14), 1px 0px 1px -1px rgba(0, 0, 0, 0.12);
+}
+dent-timepicker.dent-timepicker-wrapper {
+    white-space: nowrap;
+    padding-right: 18px;
+    margin-right: -18px;
+    vertical-align: middle;
+    position: relative;
+	display: inline-block;
+	overflow: visible;
+}
+
+.dent-timepicker {
+	display: inline-block;
+	position: absolute;
+	border-radius: 2px;
+	color: #333;
+	font-size: 18px;
+	padding:  3px 5px;
+	background: #fff;
+	top:-30px;
+	left:40px;
+	z-index: 100;
+    border-width: 1px;
+    border-style: solid;
+	border-color: rgb(224,224,224);
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transform-origin: 0px 40px;
+    transform-origin: 0px 40px;
+    transition: -webkit-transform .2s cubic-bezier(.25,.8,.25,1);
+    transition: transform .2s cubic-bezier(.25,.8,.25,1);
+}
+
+.dent-timepicker.open {
+	-webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+.dent-timepicker > table > tbody > tr > td {
+	width: 20px;
+	text-align: center;
+}
+
+.dent-timepicker > table > tbody > tr > td > i {
+	font-size: 22px;
+	font-weight: bold;
+}
+
+.dent-timepicker > table > tbody > tr > td.act {
+	border: 1px solid transparent;
+	border-radius: 5px;
+}
+
+.dent-timepicker > table > tbody > tr > td.act:hover {
+	background: #f5f5f5;
+}
+
+.dent-timepicker > table > tbody > tr > td > input {
+	width: 30px;
+	outline: none;
+	padding: 5px;
+	text-align: center;
+}
+
+.noselect {
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.dent-timepicker.red > table > tbody > tr > td.act:hover {
+	background: #ff5c5b;
+	color: #fff;
+}
+
+.dent-timepicker.green > table > tbody > tr > td.act:hover {
+	background: #8dc63f;
+	color: #fff;
+}
+
+.dent-timepicker.blue > table > tbody > tr > td.act:hover {
+	background: #3399FF;
+	color: #fff;
+}
+
+
+
+.img-placeholder {
+	background:#cccccc;
+	color:#969696;
+	width: 100%;
+	position: relative;
+	cursor: pointer;
+}
+
+.img-placeholder span{
+	font-size: 30px;
+}
+.profile-image .img-placeholder {
+	min-height: 200px;	
+}
+
+.patient-profile-box {
+   background: #f8f8f8;
+	border-right: 1px solid #eee;
+}
+
+span.input-announcement{
+	color: #23c367;
+    text-transform: capitalize;
+    text-overflow: inherit;
+    position: relative;
+    font-size: 105%;
+    top: -0.3em;
+}
+
+.color-box-pick {
+    padding: 10px;
+    text-align: center;
+    margin: 2px;
+    text-transform: capitalize;
+    cursor: pointer;
+    outline: none;
+}
+
+.color-box-pick.taken {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+.color-box-pick.picked {
+	padding: 4px
+}
+.color-box-pick.picked div{
+	border:3px solid white;
+	padding:3px;
+}
+
+.circle {
+	border-radius: 50%;
+	width: 15px;
+	height: 15px; 
+	background: gray;
+	display: inline-block;
+}
+.circle.online {
+	background: rgb(66, 183, 42);
+}
+.users-online-list .circle {
+	margin-top: 6px;
+}
+.users-online-list .pinging {
+	background: #cfedfb;
+}
+
+.users-online-list .pinging .circle {
+	animation: blinker 1s linear infinite;
+}
+.sms-usage-card {
+	height: 70px;
+	padding:10px;
+}
+
+.sms-usage-card .title{
+	margin-bottom:12px;
+	color:gray;
+}
+
+.sms-usage-card .value{
+	width: 100%;
+	text-align: center;
+}
+
+
+.toolbar-title-icon {
+	margin-top: -4px;
+    margin-right: 5px;
+}
+
+.mini-toolbar {
+	min-height: 32px !important;
+	height: 42px;
+}
+
+md-list-item.active {
+	background: #F44336;
+	color: white;
+}
+
+md-list-item.active  md-icon{
+    fill: white;
+}
+
+md-list-item.active .arrow-active {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 28px 14px 28px 0;
+    border-color: transparent #fff transparent transparent;
+    float: right;
+    display: block;
+    position: absolute;
+    right: -1px;
+    top: 0;
+}
+
+.beacon-bottom-sheet {
+    padding-bottom: 110px;
+}
+.beacon-bottom-sheet .md-grid-item-content {
+  height: 90px;
+  padding-top: 10px; 
+}
+
+.beacon-bottom-sheet .md-grid-item-content md-icon {
+  height: 48px;
+  width: 48px; 
+}
+
+.beacon-bottom-sheet h2 {
+  line-height: 36px;
+  padding-top: 10px; 
+}
+.beacon-bottom-sheet .md-subheader .md-subheader-inner {
+  padding: 0; 
+}
+.beacons-select-lists select {
+    height: 110px;
+}
+.toolbar-with-search {
+  overflow: hidden;
+}
+.toolbar-search-holder {
+  margin-top: -120px;
+  -webkit-transition: all;
+  -o-transition: all;
+  transition: all;
+  -webkit-transition-duration: .3s;
+  transition-duration: .3s;
+}
+.toolbar-search-holder.active{
+   margin-top: 0;
+}
+.toolbar-search-holder .md-input {
+    margin-top: 15px;
+/*    color: white;
+    border-color: white!important;*/
+}
+
+.toolbar-search-holder  input::-webkit-input-placeholder {
+   /*color: white;*/
+}
+
+.toolbar-search-holder  input:-moz-placeholder { /* Firefox 18- */
+   /*color: white;  */
+}
+
+.toolbar-search-holder  input::-moz-placeholder {  /* Firefox 19+ */
+   /*color: white;  */
+}
+
+.toolbar-search-holder  input:-ms-input-placeholder {  
+   /*color: white;  */
+}
+
+.select-with-header .select-header-input {
+    border: none;
+    outline: none;
+    height: 100%;
+    width: 100%;
+    padding: 0; 
+}
+
+.select-with-header .select-header {
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
+    padding-left: 10.667px;
+    height: 48px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: auto; 
+}
+
+.select-with-header md-content._md {
+    max-height:240px; 
+}
+
+.align-left {
+  text-align:left;
+}
+
+.align-center {
+  text-align:center;
+}
+
+.align-right {
+  text-align:right;
+}
+
+.pull-left {
+  float:left;
+}
+
+.pull-right {
+  float:right;
+}
+
+.table {
+  width: 100%;
+}
+
+md-dialog md-chips,
+md-dialog md-radio-group,
+md-dialog md-input-container {
+  margin-bottom: 0 !important;
+  margin-top: 10px !important;
+}
+
+md-dialog md-chips {
+    display: block;
+    margin-bottom: 20px !important;
+}
+
+md-dialog md-radio-group {
+  padding-bottom: 10px !important;
+}
+
+md-dialog .md-chips md-chip {
+    margin: 5px 5px 0 0;
+}
+.padding-bottom-form-element {
+  padding-bottom: 10px;
+}
+
+select[multiple] {
+    color: #0d649d;
+    height: auto;
+    width:100%;
+    font-size: 14px;
+    padding: 6px 12px;
+    border: 1px solid #ccc; 
+}
+
+select[multiple]:focus {
+    border-color: #999;
+    outline: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.md-hover-table tbody tr{
+  cursor: pointer;
+}
+
+.md-hover-table tbody tr:hover,
+.md-hover-table tbody tr:focus {
+  background: #dddddd;
+}
+
+table tbody tr:focus {
+  outline: 0;
+}
+
+
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+}
+
+.alert-warning {
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  color: #8a6d3b;
+}
+
+.alert-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f;
+}
+
+.alert-danger {
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    color: #a94442;
+}
+
+md-slider-container md-input-container input {
+  border: 0;
+  min-width: 100px;
+  background: #fafafa !important;
+}
+
+md-slider-container md-input-container input:hover{
+  background: #eaeaea !important;
+}
+
+.seconday-nav-item md-nav-ink-bar{
+	color: red;
+    background: red;
+}
+
+.seconday-nav-item  a.md-button.md-active {
+	color: red;
+}
+
+table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2), table.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+2) {
+    padding: 0 15px;
+    text-align: center !important;
+}
+table.md-table:not(.md-row-select) td.md-cell:first-child, table.md-table:not(.md-row-select) th.md-column:first-child {
+    padding: 0 30px 0 15px;
+}
+
+table.md-table th.md-column md-icon.md-sort-icon {
+    color: rgba(0, 0, 0, 0.26);
+    display: none;
+    transition: -webkit-transform 0.25s, opacity 0.25s;
+    transition: transform 0.25s, opacity 0.25s;
+}
+table.md-table th.md-column:hover md-icon.md-sort-icon, table.md-table th.md-column.md-active md-icon.md-sort-icon {
+    display: inline-block;
+}
+
+
+.input-list-card md-input-container {
+	margin: 0 0 10px 0;
+}
+.input-list-card textarea,
+.input-list-card input {
+	border: none;
+}
+table.md-table .md-errors-spacer,
+.filter-dates .md-errors-spacer,
+.input-list-card .md-errors-spacer {
+	min-height: auto;
+}
+.filter-dates md-input-container {
+	margin: 4px;
+}
+
+table.md-table md-input-container {
+	margin: 0;
+}
+
+.filter-dates md-radio-button .md-label {
+	margin-left: 22px;
+}
+
+md-card.block-card {
+	/* display: block; */
+}
+.margin-less-radio md-radio-button{
+	margin-right: 8px!important;
+}
+
+
+table.md-table  thead.disable-select-all > tr > th > md-checkbox {
+	display: none;
+}
+
+md-toolbar.md-table-toolbar.alternate {
+  color: #1e88e5;
+  background-color: #e3f2fd;
+}
+
+md-toolbar.md-table-toolbar.alternate .md-toolbar-tools {
+  font-size: 16px;
+}
+
+.no-margin-padding {
+	padding: 0 !important;
+	margin: 0 !important;
+}
+md-chips.dialog-chips{
+	padding: 0 !important;
+	margin-bottom: 8px !important;
+}
+
+md-chips.dialog-chips md-chip {
+	font-size: 13px;
+}
+md-chips.dialog-chips md-autocomplete {
+	width: 150px;
+	min-width: 150px;
+}
+
+md-chips.dialog-chips md-chip md-icon{
+	height: 18px;
+	min-height: 18px;
+	min-width: 18px;
+	width: 18px;
+}
+
+md-tooltip.auto-height .md-content {
+    height: auto;
+}
+
+timeline-badge {
+	z-index: 50!important;
+}
+
+.body-overflow-hidden .top-nav-fixed {
+	display: none;
+}
+
+.body-overflow-hidden  .content-margin {
+	margin-top: 0;
+}
+
+.body-overflow-hidden .patient-toolbar {
+	display: none;
+}
+
+.iti-flag {
+  background-image: url(assets/img/3f9d4c2eaac6057ce601.png) !important;
+  background-repeat: no-repeat;
+  background-color: #DBDBDB;
+  background-position: 20px 0; }
+  @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+   .iti-flag {
+      background-image: url(assets/img/1ff49fd4eddddb2bde9f.png) !important; 
+  	} 
+  }
+
+  .material-intl-tel-input .intl-tel-input {
+  	height: 30px;
+  	width: 100%;
+  }
+  .material-intl-tel-input > label {
+  	display: none;
+  }
+
+  .material-intl-tel-input.md-input-has-value > label,
+  .material-intl-tel-input.md-input-focused > label {
+  	display: initial;
+  }
+
+.material-intl-tel-input .flag-container {
+	height: 30px;
+}
+
+md-dialog.fullscreen-dialog {
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+}
+md-dialog.patient-select-dialog {
+    /*max-height: 100%;*/
+    width: 320px;
+}
+.patient-select-dialog .md-dialog-content{
+	padding: 0;
+}
+.patient-select-dialog md-list-item {
+	border-bottom: 1px solid #ddd;
+}
+
+
+
+.hide-label-done  md-input-container.md-input-focused label,
+.hide-label-done  md-input-container.md-input-has-value label{
+	color: #fafafa !important;
+}
+
+.hide-label-done  md-input-container.md-input-focused label:after,
+.hide-label-done  md-input-container.md-input-has-value label:after {
+	color: #fafafa !important;
+}
+
+tr:hover .hide-label-done  md-input-container.md-input-focused label,
+tr:focus .hide-label-done  md-input-container.md-input-focused label,
+tr:hover .hide-label-done  md-input-container.md-input-has-value label,
+tr:focus .hide-label-done  md-input-container.md-input-has-value label {
+	color: #dddddd !important;
+}
+
+tr:hover .hide-label-done  md-input-container.md-input-focused label:after,
+tr:focus .hide-label-done  md-input-container.md-input-focused label:after,
+tr:hover .hide-label-done  md-input-container.md-input-has-value label:after,
+tr:focus .hide-label-done  md-input-container.md-input-has-value label:after {
+	color: #dddddd !important;
+}
+
+.patient-select-dialog.select-icon-grid {
+	width: 500px;
+}
+
+.patient-select-dialog.select-icon-grid md-grid-tile md-icon{
+	width: 48px;
+	height: 48px;
+}
+
+
+.add-appointment-dialog.override-overflow,
+.add-appointment-dialog.override-overflow md-dialog-content, 
+.add-patient-dialog.override-overflow md-dialog-content .md-dialog-content {
+	overflow: visible;
+}
+
+.add-appointment-dialog .patient-stats-card {
+	position: absolute;
+	left: -110px;
+	background: #ffffff;
+	top: 40px;
+	height: 300px;
+	width: 100px;
+	z-index: 999;
+	min-width: 100px;
+}
+
+.edit-appointment-dialog .md-subheader-inner {
+	padding: 0 0 0 10px;
+}
+
+md-datepicker.long-picker  .md-datepicker-input-container {
+	width: 200px;
+}
+.ng-image-gallery .ng-image-gallery-modal .ng-image-gallery-content .actions-icons-container .delete-img:before {
+	background-image: url(assets/img/fa837d853c5c2116905c.svg)!important; 
+}
+.ng-image-gallery .ng-image-gallery-modal .ng-image-gallery-content .control-icons-container .ext-url:before {
+	background-image: url(assets/img/d6d01426d2259f9bb148.svg)!important; 
+}
+.ng-image-gallery .ng-image-gallery-modal .ng-image-gallery-content .control-icons-container .close:before {
+	background-image: url(assets/img/05d38703961a2d59a371.svg)!important; 
+}
+.ng-image-gallery .ng-image-gallery-modal .ng-image-gallery-content .prev {
+	background-image: url(assets/img/749fe6cc95bf91829cb4.svg)!important; 
+}
+.ng-image-gallery .ng-image-gallery-modal .ng-image-gallery-content .next {
+	background-image: url(assets/img/6308dd194875f9e79761.svg)!important; 
+}
+.ng-image-gallery.inline .ng-image-gallery-modal .ng-image-gallery-content .actions-icons-container .delete-img:before {
+	background-image: url(assets/img/6cdbb4f50e2b34a6b44a.svg)!important; 
+}
+.ng-image-gallery.inline .ng-image-gallery-modal .ng-image-gallery-content .control-icons-container .ext-url:before {
+	background-image: url(assets/img/fd121c7728a402443a4e.svg)!important; 
+}
+.ng-image-gallery.inline .ng-image-gallery-modal .ng-image-gallery-content .prev {
+	background-image: url(assets/img/fa75ffb9fcb83801604b.svg)!important; 
+}
+.ng-image-gallery.inline .ng-image-gallery-modal .ng-image-gallery-content .next {
+	background-image: url(assets/img/160d3b933fda6f8cde50.svg)!important; 
+}
+
+.ng-image-gallery .ng-image-gallery-modal .ng-image-gallery-content .actions-icons-container .delete-img:before {
+	background-image: url(assets/img/fa837d853c5c2116905c.svg)!important; 
+}
+.ng-image-gallery .ng-image-gallery-modal .ng-image-gallery-content .control-icons-container .ext-url:before {
+	background-image: url(assets/img/d6d01426d2259f9bb148.svg)!important; 
+}
+.ng-image-gallery .ng-image-gallery-modal .ng-image-gallery-content .control-icons-container .close:before {
+	background-image: url(assets/img/05d38703961a2d59a371.svg)!important; 
+}
+
+
+.ng-image-gallery .ng-image-gallery-modal .ng-image-gallery-content {
+	z-index: 99;
+}
+/*##### icon or images classes #####*/
+.user-icon{
+	width: 30px!important;
+	height: 30px!important;
+}
+
+.profile-icon{
+  margin-top: -7px;
+  color:#FBBC05!important;
+}
+
+.disabled-icon {
+  fill: #989898 !important;
+}
+
+.image-circle{
+  height: 60px;
+  width: 60px;
+  border-radius: 90%;
+  background: #0288d1;
+  color:white;
+  font-family: 'Lato', sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  margin-left: 50px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.search-icon-bar{
+  font-size: 14px;
+  box-sizing: border-box;
+  border: 1px solid rgb(2, 136, 209);
+  box-shadow: none;
+  padding: 0 1px;
+  line-height: 40px;
+  height: 40px;
+  width: 40px;
+  background-color: rgb(2, 136, 209);
+  color: rgb(255, 255, 255)!important;
+  /*cursor: pointer;*/
+}
+
+/*########################################## text/fonts classes ##########################################*/
+.patient-profile-title{
+	font-family: 'Lato', sans-serif;
+	font-size: 20px;
+  font-weight: 900;
+	color:white!important;
+}
+.profile-spec-txt{
+  font-style: normal;
+  font-weight: 900;
+  font-size: 12px;
+  margin-left: 0px;
+  padding: 2px;
+}
+
+.profile-warnings {
+  margin: 0 20px;
+}
+
+.table-op-txt {
+  font-family: lato, sans-serif; 
+  font-weight: 500;
+  font-size: 13px;
+  color: white;
+  text-align: center;
+}
+
+.profile-info-txt{
+  font-style: normal;
+  font-weight: 300;
+  margin-left: 0;
+  color: #ffffff;
+  margin-right: 8px;
+  font-size: 12px;
+  padding:2px;
+  /*height: 18px;*/
+  text-align: center;
+}
+
+.patient-sub-menu{
+  font-style: normal;
+  font-weight: 900;
+  color: #757575;
+}
+
+.operations-txt{
+  font-size: 12px;
+  font-weight: 500;
+  color:#757575!important;
+}
+
+.header-table-title{
+  font-style: normal;
+  font-weight: 500;
+  color: #757575;
+  text-align: center;
+  font-size: 13px;
+}
+
+.table-cont-gray{
+  background-color: #b1b1b0;
+  margin-top:1px;
+}
+
+.appt-list-title{
+  margin-top: 7px;
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  color: rgba(0,0,0,0.54)!important;
+  font-weight: 900;
+}
+
+.appt-list-text{
+  font-family: 'Lato', sans-serif;
+  font-weight: 200;
+  color: rgba(0,0,0)!important;
+  margin-top: 5px;
+}
+
+.app-list-bd{
+  background: rgba(0, 0, 0, 0.14); 
+  font-weight:900;
+}
+
+.patient-list-txt{
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color:#03a9f4;
+  border:solid 1px #03a9f4;
+}
+
+.align-right{
+  text-align: right;
+}
+
+.appt-header{
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  color:rgba(0,0,0,0.54)!important;
+  margin-top: 5px;
+  border:1px solid rgb(224,224,224);
+  text-align: center;
+  padding: 8px;
+}
+/*##################################### button classes ###########################3#####*/
+.navigation-button{
+	/*height: 34px;*/
+  background-color: white;
+  font-style: normal;
+  font-size: 17px;
+  font-weight: 900;
+  margin:1px;
+  cursor: pointer;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 7px;
+  color: #575655!important;
+  outline: none;
+}
+
+.navigation-button:hover{
+	background-color: #FBBC05;
+}	
+
+.navigation-button.disabled {
+  background-color: gray;
+}
+
+.active-operation {
+  background: #ffdc75 !important;
+}
+
+.active-operation-txt {
+  color: rgb(87, 86, 85) !important;
+}
+
+.active-operation-icon {
+  fill: rgb(87, 86, 85) !important;
+}
+
+.status-btn {
+    height: 50px;
+    font-style: normal;
+    font-size: 13px;
+    text-align: initial;
+    padding: 7px;
+    cursor: pointer;
+    color: #827e82;
+    outline: none; 
+    transition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.9s cubic-bezier(0.25, 0.8, 0.25, 1);
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.status-btn.active,
+.status-btn:hover{
+  background-color: #FBBC05!important;
+  color: #ffffff!important;
+}
+
+.operations-menu-toolbar {
+  background: transparent !important;
+  min-height: initial;
+}
+
+.operations-btn{
+  font-weight: 500;
+  outline: none;
+  height: 40px;
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  padding: 11px;
+  outline: none;
+  cursor: pointer;
+  color: #827e82;
+  transition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.9s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.operations-btn.active,
+.operations-btn:hover{
+  background-color: #757575!important;
+  color: #FBBC05!important;
+}
+
+.search-operations{
+  color: #757575;
+  height: 30px;
+  width: 30px;
+  outline: none;
+  cursor: pointer;
+  margin-right: 10px;
+/*  margin-top: 7px!important;*/
+}
+
+.search-operations:hover{
+  color: #FBBC05!important;
+}
+
+.tooth-click{
+  cursor: pointer;
+  min-height: 150px;
+}
+/*##### ######################################### position classes #######################################*/
+.sub-menu-fixed{
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+}
+
+.add-patient-dialog{
+  margin-top:100px;
+}
+
+.hidden {
+  visibility: hidden !important;
+}
+/*##################################### containers classes ############################################*/
+.leftNav-content{
+  height: 108px;
+}
+
+.patient-op-cont{
+  height: 300px;
+  overflow: scroll;
+}
+
+.patient-medHist-cont{
+  height: 200px;
+  background-color: white;
+}
+
+.light-background {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.virtualRepeat #vertical-container {
+  height: 350px;
+  width: 100%; 
+}
+
+.input-profile{
+  width: 180px;
+}
+
+.patient-profile {
+  background: #575655;
+  height: 400px;
+  max-width : 500px;
+  min-width: 250px;
+  z-index: 10;
+  position: fixed;
+  border: 1px solid rgba(56, 53, 53, 0.38);
+  box-sizing: border-box;
+  box-shadow: 2px 0px 15px rgb(87, 86, 85);
+}
+
+.patient-toolbar{
+  background-color: #ffffff!important;
+  height: 50px!important;
+  min-height: 50px!important;
+  color:rgba(0,0,0,0.54);
+}
+
+.patientlist-toolbar{
+  background-color: #ffffff!important;
+  height: 60px;
+  color:rgba(0,0,0,0.54)!important;
+  position:fixed; 
+  border-bottom: 1px solid #03a9f4;
+}
+
+.status-toolbar {
+  background-color:#ffdc75!important;
+  height: 50px;
+  max-height: 50px;
+}
+
+.search-box-patient-list{
+  font-size: 14px;
+  box-sizing: border-box;
+  border: 1px solid rgb(189,189,189);
+  box-shadow: none;
+  width: 100%;
+  padding: 0 15px;
+  line-height: 40px;
+  height: 40px;
+  font-style: italic;
+  font-weight: 500;
+  color:rgb(130, 129, 129);
+}
+
+.operations-content{
+  max-height: 300px !important;
+  overflow: scroll;
+}
+
+.profile-img-cont{
+  margin: 2px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.search-b-operations{
+  margin-top: 5px;
+  border-radius: 0px!important;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0), 0px 1px 1px 0px rgba(0, 0, 0, 0), 0px 2px 1px -1px rgba(0, 0, 0, 0)!important;
+}
+
+.text-status{
+    height: 27px;
+    background-color: white;
+    font-style: normal;
+    font-size: 16px;
+    font-weight: 900;
+    text-align: initial;
+    padding: 5px;
+    color: #827e82;
+    outline: none; 
+    box-shadow: 0 1px 3px 0 rgb(117, 117, 117);
+    background: #ffffff;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.header-tbl-cont{
+    height: 25px;
+    padding-top: 4px;
+    background-color: rgb(253, 231, 167);
+}
+
+.table-cont-bd{
+  background-color: #b6b5b5;
+  color: white;
+}
+
+.teeth-chart-container {
+  margin: 0 10px;
+  border: 1px solid #d2cfcf;
+  padding: 0 15px;
+  min-height: 400px;
+  position: relative;
+}
+
+.appointment-container{
+  height: 500px;
+}
+.patient-list-container{
+  height: 600px;
+}
+
+.sub-op-toolbar{
+  background: rgba(255, 220, 117, 0.62);
+}
+
+.date-op-cont{
+  margin-top: 10px;
+  outline-color: aliceblue;
+  color: rgb(87, 86, 85);
+}
+/*############################################  transformation classes ######################################3#####*/
+.tooth-wrapper.flip-tooth {
+    transform: rotateY(180deg);
+}
+
+#op-autocomplete md-autocomplete md-autocomplete-wrap{
+  height:30px!important;
+  color: gray;
+}
+
+.medical-history h2{
+  text-transform: capitalize;
+}
+
+/*############################### Border classes #################################*/
+.border-b-lightgray{
+    border-bottom: 1px solid rgb(193, 193, 193);
+}
+
+.patient-balance-card {
+	height: 90px;
+	padding:10px;
+}
+
+.patient-balance-card .title{
+	margin-bottom:20px;
+	color:gray;
+}
+
+.patient-balance-card .value{
+	width: 100%;
+	text-align: center;
+}
+
+
+.image-grid {
+  margin: 8px;
+}
+
+.image-grid md-grid-tile {
+  outline: none;
+  cursor: pointer;
+  background: #cccccc;
+}
+
+.image-grid .upload-tile figure {
+  padding: 3px;
+}
+
+.image-grid .upload-tile .icon-holder {
+  width: 100%;
+  height: 100%;
+  border:5px dotted #fff;
+}
+
+.image-grid .upload-tile .icon-holder md-icon {
+  width: 44px;
+  height: 44px;
+}
+
+.upload-container {
+	position: relative;
+	z-index: 3;
+}
+
+.upload-container .display-panel {
+	height: 0;
+	position: relative;
+	width: 100%;
+	z-index: 3;
+	bottom: 0;
+	overflow: hidden;
+	background: whitesmoke;
+	-webkit-transition: height 0.3s;
+	transition: height 0.3s;
+}
+
+.upload-container .drag-panel {
+	display: none;
+	top:56px;
+	left:0;
+	z-index: 4;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background: rgba(255, 255, 255, 0.6);
+}
+
+.upload-container.dragover .display-panel,
+.upload-container.has-image .display-panel {
+	height: 100%;
+}
+
+.upload-container.dragover .drag-panel {
+	display: block;
+}
+
+.display-panel .container,
+.drag-panel .container {
+	padding:50px;
+	position: relative;
+	padding-bottom: 120px;
+	height: 100%;
+}
+
+.drag-panel .container .inner-body {
+	border: 8px dotted #afafaf;
+}
+
+.drag-panel .container .drag-image-label {
+	font-size: 42px;
+	color: #b0b0b0;
+}
+
+.display-panel .preview-link {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	background: #efefef;
+	height: 200px;
+}
+
+.display-panel  .preview-link > div {
+	height: 100%;
+}
+
+.display-panel .preview-link .preview-add-icon {
+	background: #ffffff;
+	color: #03a9f4;
+	width: 200px;
+	font-size: 24px;
+}
+
+.display-panel .preview-link .preview-add-icon md-icon {
+	fill: #03a9f4;
+	height: 42px;
+	width: 42px;
+}
+
+.upload-container.dragover .image-grid,
+.upload-container.has-image .image-grid {
+	display: none;
+}
+
+.absolute-image-loader {
+	position: absolute;
+	top:0;
+	z-index: 4;
+	    background: rgba(3, 169, 244, 0.25);
+	color: white;
+	font-size: 30px;
+	left:0;
+}
+
+.image-grid-list li {
+	display: inline-block;
+	list-style-type: none;
+	position: relative;
+	margin: 5px;
+	padding: 5px;
+}
+
+.image-grid-list li img {
+	cursor: pointer;
+}
+
+.image-grid-list li.image-selected {
+	background: #03a9f4;
+	padding: 10px;
+	margin: 0px;
+}
+
+.image-grid-list li .selected-icon {
+	display: none;
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	fill:  #03a9f4;
+	top: 60px;
+	left: 100px;
+}
+
+.image-grid-list li.image-selected .selected-icon{
+	display: inline;
+}
+
+.notes-container {
+	min-height: 100px;
+	position: relative;
+}
+
+.note-date {
+	width: 150px;
+	text-align: right;
+	padding: 13px;
+	color: gray;
+	font-weight: bold;
+	margin-top: 6px;
+}
+
+.note-icons {
+	width: 50px;
+}
+
+.note-icons .circle {
+	width: 28px;
+	height: 28px;
+	background: none;
+	border: 3px solid #03a9f4;
+	margin: 3px;
+	margin-left: 6px;
+}
+
+.note-icons .divider {
+	width: 23.5px;
+  border-right-width: 1px;
+  border-right-style: solid;
+  border-right-color: rgba(0,0,0,0.12);
+}
+
+.note-details {
+	margin-bottom: 6px;
+}
+
+.blood-type-text {
+  color: #ff5722;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.no-hover-effect {
+  background-color: white !important;
+}
+
+.align-button {
+  min-width: 20px !important;
+  padding-top: 4px;
+}
+/* .note-details md-divider {
+	margin-top: 20px;
+} */
+
+.note-title {
+  display: inline-table;
+	font-weight: bold;
+    margin-top: 12px;
+    margin-bottom: 9px;
+    font-size: 18px;
+}
+
+.note-description {
+	color: gray;
+}
+
+.note-extras {
+	text-align: right;
+	margin-right: 40px;
+	margin-bottom: 5px;
+	font-size: 12px;
+	color: gray;
+}
+
+.note-action{
+  display: inline-table;
+  margin-right: 40px;
+  /*margin-top: 20px;*/
+  float: right;
+}
+
+.note-action button{
+  margin: 0px;
+  min-width: 20px;
+  /*float:right;*/
+}
+.from-now-bulk {
+	position: absolute;
+    left: 120px;
+    color: #ddae29;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.patient-list-table .image-circle {
+	margin-left: 0;
+	margin-bottom: 0;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	width: 50px;
+	height: 50px;
+}
+
+table.patient-list-table.md-table:not(.md-row-select) td.md-cell:first-child, 
+table.patient-list-table.md-table:not(.md-row-select) th.md-column:first-child {
+    padding: 0 10px 0 10px;
+}
+
+
+/*.treatment-radio-group 
+*/
+
+.treatment-plan-page h3 {
+  margin-left: 15px; 
+}
+
+.treatment-plan-page md-radio-button  {
+	margin-bottom: 0;
+}
+.treatment-plan-page .treatment-select-column {
+    background: whitesmoke;
+    border-right: 1px solid #e8e5e8;
+    border-top: 1px solid #e8e5e8;
+}
+
+
+.treatment-plan-page .md-checked {
+  background-color: #ECFAFB;
+  border-radius: 2px; 
+}
+
+.treatment-plan-page .row {
+  border-bottom: 1px dashed #ddd; 
+}
+
+.treatment-plan-page div.row:last-child {
+  border-bottom: 0px dashed #ddd; 
+}
+
+.treatment-plan-page .inline-table-date .md-datepicker-input {
+	 color: #393939 !important;
+}
+
+.inner-panel-menu-bar {
+	padding: 0;
+}
+
+.inner-panel-menu-bar button{
+	padding: 0;
+    font-size: 16px;
+    width: 100%;
+    text-align: left;
+}
+
+.inner-panel-menu-bar-divider {
+	margin: 0!important;
+}
+
+.inner-panel-menu-content {
+	padding: 0 !important;
+}
+
+.inner-panel-menu-content.level-2 {
+	max-height: 400px !important;
+}
+.inner-panel-menu-content.level-2 md-menu-item  {
+	min-height: 35px;
+}
+
+.teeth-chart-full-screen-button {
+	position: absolute;
+    right: 0;
+    top: 0;
+}
+.custom-usage-switch {
+  margin: 0px 20px !important;
+}
+
+.custom-usage-switch .md-bar, .custom-usage-switch .md-thumb{
+  background-color: rgba(3,169,244,0.5);
+}
+
+.strong {
+  font-weight: bolder;
+}
+
+.primary {
+  color: rgba(3,169,244);
+}
+
+.po-select-item-category-info .md-cell{
+    background: #a3b4bc!important;    
+}
+.empty-table-container {
+    padding: 30px 0px;
+    margin: 30px 0px;
+    text-align: center;
+}
+
+.empty-table-container div {
+    color: #bbbbbb;
+}
+.po-bold {
+    font-weight: bold;
+}
+
+.po-created {
+    color: #ffc200 !important;
+}
+.po-sent {
+    color: #009588 !important;
+}
+.po-confirmed {
+    color: #ffce1c !important;
+}
+.po-inprocess {
+    color: #f19f00 !important;
+}
+.po-intransit {
+    color: #f19f00 !important;
+}
+.po-completed {
+    color: #00a7f7 !important;
+}
+.po-canceled {
+    color: #9fa29e !important;
+}
+.po-deleted {
+    color: red !important;
+}
+
+.stock-view .simple-link-button {
+	font-size: 16px;
+	line-height: 31px;
+	padding: 0 3px;
+}
+
+.stock-view button.simple-link-button {
+	margin-top: -5px;
+}
+
+.stock-view  .note-icons .circle {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #03a9f4;
+    margin-left: 11px;
+}
+
+.stock-view .notes-container {
+    min-height: 70px;
+}
+
+.stock-view .note-details {
+    margin-bottom: 6px;
+    border-bottom: 1px solid #e6e4e4;
+    min-height: 60px;
+    margin-top: 15px;
+}
+
+.line-through {
+	text-decoration: line-through;
+}
+
+.warning {
+    color: red !important;
+}
+
+.critical {
+    color: red !important;
+    background-color: #fffebc !important;
+}
+
+.stock-item-subheader {
+	font-size: 15px;
+}
+
+.stop-profile-0 {
+    stop-color: #FFFFFF;
+}
+.stop-profile-1 {
+    stop-color: #B1B0B1;
+}
+/*css for the root tooth view*/
+.stop-root-02 {
+    stop-color: #FFFFFF;
+}
+.stop-root-1 {
+    stop-color: #FBB03B;
+}
+/*css for the top tooth view*/
+.stop-top-0 {
+    stop-color: #A5A5A5;
+}
+.stop-top-02 {
+    stop-color: #BCBCBC;
+}
+.stop-top-05 {
+    stop-color: #E0E0E0;
+}
+.stop-top-08 {
+    stop-color: #F7F7F7; 
+}
+.stop-top-1 {
+    stop-color: #FFFFFF;
+}
+
+.status-label {
+	display: inline-block;
+	padding:2px 3px;
+	font-size: 13px;
+	min-width: 40px;
+	text-align: center;
+	color: #1f1f1f;
+	text-transform: lowercase;
+	float: right;
+	margin-right: 2px;
+}
+
+ng-tooth {
+	outline:none;
+}
+
+
+.custom-operation-dialog .teeth-chart-container{
+	width: 280px;
+    padding: 20px;
+    height: 280px;
+    border: 1px solid #e4e4e4;
+    margin-top: 20px;
+}
+
+.tooth-wrapper {
+	position: relative;
+	top:0;
+	left:0;
+	min-height: 100px;
+}
+
+.tooth-wrapper.is-child {
+    width: 80%;
+}
+
+.tooth-wrapper.is-child.is-top {
+    top: -10px;
+}
+.tooth-wrapper.is-child.is-bottom {
+    bottom: -10px;
+}
+
+.tooth-wrapper.is-child.is-top.default-hidden {
+    top: -20px;
+}
+
+.tooth-wrapper.is-child.is-bottom.default-hidden {
+    bottom: -20px;
+}
+
+.teeth-chart .tooth-wrapper.is-child.default-hidden  .surgery-op {
+	fill: #f3f3f3!important;
+}
+
+.op-custom-display {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.op-custom-display md-icon {
+	position: absolute;
+	max-width: none;
+	fill: none;
+	max-height: none;
+}
+.top-nav-fixed {
+	position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+}
+
+.topNav {
+    position: relative;
+}
+
+md-toolbar.topNav  {
+	min-height: 50px;
+}
+
+.topNav .md-toolbar-tools {
+    height: 50px;
+    max-height: 50px;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+    overflow: hidden;
+}
+
+.top-nav-link {
+	font-size: 14px;
+	color: white !important;
+	font-weight: bold;
+	margin: 0 6px;
+	min-height: 35px;
+	height: 35px;
+	min-width: 75px;
+}
+
+.top-nav-icon {
+	width: 35px !important;
+	height: 35px !important;
+	min-height: 35px;
+	padding-top: 6px !important;
+	/*line-height: 2px;*/
+	/*min-width: 75px;*/
+}
+
+.logo {
+	width: 36px;
+    cursor: pointer;
+}
+.top-nav-logo {
+	border-right: 1px solid #bce8fc; 
+	padding-right: 10px;
+}
+.top-nav-userinfo {
+	margin-left: 10px;
+	font-size: 12px;
+	line-height: 18px;
+}
+
+.top-nav-userinfo .clinic-name{
+	font-size: 13px;
+	font-weight: bold;
+}
+
+
+#top-search-wrap {
+	position: absolute;
+    top: -350px;
+    right: 0;
+    width: 100%;
+    height: 70px;
+	background: rgba(0, 0, 0, 0.7);
+    -webkit-transition: all;
+    -o-transition: all;
+    transition: all;
+    -webkit-transition-duration: 300ms;
+    transition-duration: 300ms;
+    opacity: 0;
+    z-index: 10;
+	border-bottom: 1px solid #b9b9b9;
+	padding-bottom: 200px;
+}
+
+#top-search-wrap.open {
+    top: 0;
+    opacity: 1;
+    height: 100%;
+}
+
+#top-search-wrap md-autocomplete{
+	background: transparent;
+	height: 60px;
+}
+
+#top-search-wrap md-autocomplete md-autocomplete-wrap {
+		height: 60px !important;
+		box-shadow: none !important;
+	    border-bottom: 1px solid gray !important;
+}
+
+#top-search-wrap md-autocomplete md-autocomplete-wrap {
+		height: 60px !important;
+		box-shadow: none !important;
+	    border-bottom: 1px solid gray !important;
+}
+
+#top-search-wrap md-autocomplete md-autocomplete-wrap #autoCompletePatients {
+	font-size: 35px;
+	color: white;
+}
+
+#top-search-wrap md-autocomplete md-autocomplete-wrap #autoCompletePatients::placeholder {
+	color: #dcdcdc;
+}
+#top-search-wrap .top-search-icon {
+	height: 70px;
+	width: 70px;
+	margin-top: -10px;
+	margin-right: 10px;
+}
+
+#top-search-wrap .top-search-icon md-icon{
+	height: 60px;
+	width: 60px;
+	color: white;
+}
+
+.font-17 {
+	font-size: 17px!important;
+}
+
+.search-margin {
+	margin-left: 9px;
+}
+
+.top-nav-marker {
+	border-bottom: 2px solid white;
+    border-radius: 0px!important;
+    font-style: normal;
+    font-weight: 900!important;
+}
+
+.user-font {
+	font-size: 14px;
+}
+
+.top-nav-marker:active {
+    color:orange!important;
+}
+
+
+.online-status-bar {
+	position: absolute;
+	width: 100%;
+	left: 0;
+	top: -30px;
+    color: white;
+    z-index: 9;
+    /* padding: 5px; */
+    text-align: center;
+    font-size: 16px;
+	background-color: #8BC34A;
+	-webkit-transition: top 300ms ease-in-out 3000ms, background-color 1s linear 0ms;
+	-o-transition: top 300ms ease-in-out 3000ms, background-color 1s linear 0ms;
+	transition: top 300ms ease-in-out 3000ms, background-color 1s linear 0ms;
+}
+
+
+.offline-mode .online-status-bar  {
+	background-color: #F44336;
+	top: 0;
+	-webkit-transition: top 300ms ease-in-out 0ms;
+	-o-transition: top 300ms ease-in-out 0ms;
+	transition: top 300ms ease-in-out 0ms;
+}
+
+.offline-mode ui-view > div > md-content > md-content {
+	margin-top: 79px;
+}
+
+.offline-mode ui-view  md-content .top-nav-fixed {
+	top: 29px;
+}

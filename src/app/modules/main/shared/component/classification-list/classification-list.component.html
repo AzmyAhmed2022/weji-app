@@ -1,0 +1,73 @@
+<!-- Main content -->
+<div class="h-screen flex-grow-1 overflow-y-lg-auto" [ngClass]="translate.currentLang=='ar'?'get-right':'get-left'">
+
+    <!-- Main -->
+    <main class="main">
+        <!-- --searchArea -->
+        <div class="row">
+            <div class="col-7 search-area">
+                <input type="text" class="form-control form-control-sm" [formControl]="searchInputControl"
+                [placeholder]="translate.currentLang=='ar'?'بحث':'Search'" />
+            </div>
+            <div class="col-5">
+        
+                <span
+                class="current-cat">
+                <i [class]="catObj?.CatClass">{{translate.currentLang=='ar'?catObj?.CatNameAr:catObj?.CatNameEn}}</i>
+            
+            </span>
+            </div>
+
+
+        </div>
+        <div class="">
+            <!-- Card stats -->
+            <div class="row g-2 ">
+                <div class="col-xl-3 col-sm-4 col-12" *ngFor="let item of wejiClassifications">
+                    <div class="card  border-0">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <span
+                                        class="h6 font-bold mb-0 classificaion-area">{{translate.currentLang=='ar'?item.NameAr:item.NameEn}}</span>
+                                   
+                                   
+                                        <span
+                                        class="h6 font-semibold text-muted text-sm d-block mb-2">{{item.CategoryPercent}}%
+
+                                        {{translate.currentLang=='ar'?'من الناس طلبوا ذلك':'Of People Order That'}}
+                                    </span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape  text-white text-lg rounded-circle">
+                                        <!-- <img [src]="item.ImgSrc"> -->
+                                        <!-- //  <img src="/assets/images/بقاله.png" alt="" width="50" height="24"> -->
+                                        <img src="/assets/images/بقاله.png" alt="Avatar" class="avatar">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-2 mb-0 text-sm">
+
+
+                                <button (click)="openModal(item)" class="btn d-inline-flex btn-sm btn-success mx-1">
+                                    <span class=" pe-2">
+                                        <i class="fa fa-plus"></i>
+                                    </span>
+                                    <span>{{translate.currentLang=='ar'?'أطلب':'Order'}}</span>
+                                </button>
+                                <span class="badge badge-pill bg-soft-success text-success me-2">
+                                    <i class="fa fa-arrow-up me-1"></i>{{item.CategoryPercent}}%
+                                </span>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>

@@ -1,0 +1,280 @@
+<section class="card" [ngClass]="translate.currentLang=='ar'?'right-auth-style':'left-auth-style'">
+    <div class="container-fluid card-body">
+        <div class="row d-flex justify-content-center align-items-center">
+
+            <div class="col-md-10 col-lg-5 col-lg-5 offset-xl-1">
+                <form class="master-form" [formGroup]="UserSignUpForm">
+                    <div class="divider d-flex align-items-center my-4">
+                        <label class="form-label mx-3 mb-0" for="form3Example3">{{"NEWACCOUNT"|translate}}
+
+                            <i class='fa fa-rocket'></i>WE
+                        </label>
+
+                        <a class="text-center navbar-brand">
+                            <img src="/assets/images/signup.png" alt="" width="90" height="30">
+                        </a>
+                    </div>
+
+                    <div class="form-outline mb-3 row" style="padding-bottom:3px ;">
+
+                        <div class="col-sm-8">
+                            <label class="form-label" for="form3Example3">{{"FULLNAME"|translate}}</label>
+
+                            <input type="text" id="form3Example3" class="form-control form-control-sm"
+                                formControlName="FullName"
+                                [ngClass]="{ 'is-invalid': submitted && f['FullName'].errors }" />
+                            <div *ngIf="(submitted && f['FullName'].errors)" class="invalid-feedback">
+                                <div *ngIf="f['FullName'].errors['required']">
+
+                                    {{"FULLNAME"|translate}}
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="form-label" for="form3Example3">{{"GENDER"|translate}}</label>
+                            <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                                formControlName="Gender">
+                                <option selected disabled>{{"GENDER" |translate}}</option>
+                                <option value="1">{{"MALE"|translate}}
+                                </option>
+                                <option value="2">{{"FEMALE"|translate}}
+                                </option>
+                            </select>
+                            <div *ngIf="(submitted && f['Gender'].errors)" class="invalid-feedback">
+
+                                <div *ngIf="f['Gender'].errors['required']">
+
+                                    {{"GENDER"|translate}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- phoner input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="form3Example3">{{"ENTERPHONENUMBER"|translate}}</label>
+
+                        <input type="tel" id="form3Example3" placeholder="Ex:-01004303936"
+                            class="form-control form-control-sm" formControlName="Mobile"
+                            [ngClass]="{ 'is-invalid': submitted && f['Mobile'].errors }" />
+
+                        <div *ngIf="(submitted && f['Mobile'].errors)" class="invalid-feedback">
+                            <div *ngIf="f['Mobile'].errors['required']">
+
+                                {{"ENTERPHONENUMBER"|translate}}
+                            </div>
+                            <div *ngIf="f['Mobile'].errors['minlength']">
+
+                                {{translate.currentLang=='ar'?'رقم الهاتف يجب ان يكون 11 رقم على الاقل':'Mobile must be
+                                at least 11 characters'}}
+                            </div>
+                            <div *ngIf="f['Mobile'].errors['maxlength']">
+                                {{translate.currentLang=='ar'?'رقم الهاتف يجب ان يكون 11 رقم على الاكثر':'Mobile must be
+                                at least 11 characters'}}
+                            </div>
+
+                            <div *ngIf="f['Mobile'].errors['pattern']">
+                                {{"MOBILEINVALID"|translate}}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="form3Example3">{{"EMAIL"|translate}}</label>
+                        <input type="email" id="form3Example3" formControlName="Email"
+                            class="form-control form-control-sm" placeholder="Weji@gmail.com"
+                            [ngClass]="{ 'is-invalid': submitted && f['Email'].errors }" />
+                        <div *ngIf="submitted && f['Email'].errors" class="invalid-feedback">
+                            <div *ngIf="f['Email'].errors['required']">
+                                Email is required
+                                {{"ENTEREMAIL"|translate}}
+                            </div>
+                            <div *ngIf="f['Email'].errors['email']">
+                                {{"EMAILINVALID"|translate}}<span>....Ex:- weji@gmail.com</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- adress -->
+                    <div class="form-outline mb-3 row" style="padding-bottom:3px ;">
+
+                        <div class="col-sm-4">
+
+                            <label class="form-label" for="form3Example3">{{"GOV" |translate}}</label>
+
+                            <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                                formControlName="GovSerial" (change)="selectAddress('Gov')">
+                                <option selected disabled>{{"GOV" |translate}}</option>
+
+                                <option *ngFor="let gov of GovArr" [value]="gov.Serial">
+                                    {{translate.currentLang=='ar'?gov.NameAr:gov.NameEn}}
+
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="form-label" for="form3Example3">{{"CITY" |translate}}</label>
+
+                            <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                                formControlName="CitySerial" (change)="selectAddress('City')">
+                                <option selected disabled>{{"CITY" |translate}}</option>
+
+                                <option *ngFor="let city of CityArr" [value]="city.Serial">
+                                    {{translate.currentLang=='ar'?city.NameAr:city.NameEn}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4" style="padding-bottom:10px;">
+                            <label class="form-label" for="form3Example3">{{"STATE" |translate}}</label>
+                            <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                                formControlName="StateSerial" (change)="selectAddress('State')">
+                                <option selected disabled>{{"STATE" |translate}}</option>
+
+                                <option *ngFor="let state of StateArr" [value]="state.Serial">
+                                    {{translate.currentLang=='ar'?state.NameAr:state.NameEn}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="form-label" for="form3Example3">{{"VILLEGE" |translate}}</label>
+
+                            <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                                formControlName="VillegeSerial">
+                                <option selected disabled>{{"VILLEGE" |translate}}</option>
+                                <option *ngFor="let villege of VillegeArr" [value]="villege.Serial">
+                                    {{translate.currentLang=='ar'?villege.NameAr:villege.NameEn}}
+                                </option>
+                            </select>
+                        </div>
+                        <!-- Password input confirm -->
+                        <div class="col-sm-8">
+                            <label class="form-label" for="form3Example3">{{"FULLADDRESS" |translate}}</label>
+
+                            <input type="text" id="form3Example4" class="form-control form-control-sm"
+                                formControlName="FullAddress"
+                                [ngClass]="{ 'is-invalid': submitted && f['FullAddress'].errors }" />
+
+                            <div *ngIf="(submitted && f['FullAddress'].errors)" class="invalid-feedback">
+                                <div *ngIf="f['FullAddress'].errors['required']">
+
+                                    {{"FULLADDRESS"|translate}}
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Password input -->
+                    <div class="form-outline mb-3">
+                        <label class="form-label" for="form3Example4">
+
+                            {{"ENTERPASSWORD" |translate}}
+                        </label>
+
+                        <input type="password" id="form3Example4" class="form-control form-control-sm"
+                            formControlName="Password"
+                            [ngClass]="{ 'is-invalid': submitted && f['Password'].errors }" />
+                        <div *ngIf="(submitted && f['Password'].errors)" class="invalid-feedback">
+                            <div *ngIf="f['Password'].errors['required']">
+                                {{"ENTERPASSWORD"|translate}}
+                            </div>
+                            <div *ngIf="f['Password'].errors['minlength']">
+                                {{translate.currentLang=='ar'?'كلمة المرور يجب ان يكون 8 رقم على الاقل':'Password must
+                                be
+                                at least 8 characters'}}
+                            </div>
+                            <div *ngIf="f['Password'].errors['pattern']">
+                                {{translate.currentLang=='ar'?'أدخل على الاقل حرف كبيرواخر صغير و رقم ':' Use Strong
+                                Password Upper Char (A) and Lower Char (a) and Numbers'}}
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Password input confirm -->
+                    <div class="form-outline mb-3">
+                        <label class="form-label" for="form3Example4">
+                            {{"CONFIRMPASSWORD" |translate}}
+                        </label>
+                        <input type="password" id="form3Example4" class="form-control form-control-sm"
+                            formControlName="ConfirmPassword"
+                            [ngClass]="{ 'is-invalid': submitted && f['ConfirmPassword'].errors }" />
+                        <div *ngIf="(submitted && f['ConfirmPassword'].errors)" class="invalid-feedback">
+                            <div *ngIf="f['ConfirmPassword'].errors['required']">
+                                {{"CONFIRMPASSWORD"|translate}}
+                            </div>
+                            <div *ngIf="f['ConfirmPassword'].errors['minlength']">
+                                {{translate.currentLang=='ar'?' تأكيد كلمة المرور يجب ان يكون 8 رقم على
+                                الاقل':'ConfirmPassword must be
+                                at least 8 characters'}}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Accept Terms-->
+                    <div class="form-group form-check">
+                        <input type="checkbox" formControlName="AcceptTerms"
+                            style="background-color: rgb(108, 190, 108)" class="form-check-input"
+                            [ngClass]="{ 'is-invalid': submitted && f['AcceptTerms'].errors }" />
+                        <label for="acceptTerms" class="form-check-label mr-4 ml-4">
+                            {{"TERMSACCEPT"|translate}}
+
+                            <a style="text-decoration: underline;" (click)="openTermsModal()">
+                                {{translate.currentLang=='ar'?'!افتح':'Open!'}}
+                            </a>
+
+                        </label>
+                        <div *ngIf="submitted && f['AcceptTerms'].errors" class="invalid-feedback">
+                            {{"TERMSACCEPT"|translate}}
+                        </div>
+                    </div>
+
+                    <div class="text-center text-lg-start mt-4 pt-2">
+                        <button type="button" class="btn btn-sm btn-success"
+                            style="padding-left: 2.5rem; padding-right: 2.5rem;" (click)="saveAndActivateUser()">
+                            {{"NEWACCOUNT" |translate}}
+                            <span *ngIf="showSpinner==1" class="spinner-border spinner-border-sm" role="status"
+                                aria-hidden="true"></span>
+                        </button>
+                        <p class="small fw-bold mt-2 pt-1 mb-0 form-label">
+                            {{"HAVEACCOUNT" |translate}}
+
+
+                            <a class="link-danger form-label" [routerLink]="['/main/login']">
+
+                                {{"LOGIN" |translate}}
+
+                            </a>
+                        </p>
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="col-md-9 col-lg-6 col-xl-5">
+                <img src="/assets/images/signup.png" class="img-fluid" alt="Sample image">
+            </div>
+        </div>
+    </div>
+    <!-- <div
+      class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+      <div class="text-white mb-3 mb-md-0">
+        Copyright © 2020. All rights reserved.
+      </div>  
+      <div>
+        <a   class="text-white me-4">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a   class="text-white me-4">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a   class="text-white me-4">
+          <i class="fab fa-google"></i>
+        </a>
+        <a   class="text-white">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </div>
+    </div> -->
+</section>

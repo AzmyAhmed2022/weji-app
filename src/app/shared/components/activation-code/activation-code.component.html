@@ -1,0 +1,71 @@
+<section class="card" [ngClass]="translate.currentLang=='ar'?'right-auth-style':'left-auth-style'">
+    <div class="container-fluid card-body" style="height: 640px;">
+        <div class="row d-flex justify-content-center align-items-center">
+
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <form class="master-form" [formGroup]="UserActivationForm">
+
+                    <div class="divider d-flex align-items-center my-4">
+                        <label class="form-label mx-3 mb-0" for="form3Example3">
+
+                            {{"ENTERCONFIRMATIONCODE"|translate}}
+
+                            <i class='fa fa-rocket'></i>WE
+                        </label>
+
+                        <a class="text-center navbar-brand">
+                            <img src="/assets/images/activation-code.png" alt="" width="90" height="1">
+                        </a>
+                    </div>
+
+
+                    <div class="form-outline mb-3">
+                        <label class="form-label" for="form3Example4">{{"ENTERCONFIRMATIONCODE"|translate}} </label>
+                        <input type="text" id="form3Example4" formControlName="ConfirmationCode"
+                            class="form-control form-control-sm"
+                            [ngClass]="{ 'is-invalid': submitted && f['ConfirmationCode'].errors }" />
+
+                            
+                        <div *ngIf="(submitted && f['ConfirmationCode'].errors)" class="invalid-feedback">
+                            <div *ngIf="f['ConfirmationCode'].errors['required']">
+                                {{"ENTERCONFIRMATIONCODE"|translate}}
+                            </div>
+                            <div *ngIf="f['ConfirmationCode'].errors['pattern']">
+                                {{"CONFIRMATIONCODEINVALID"|translate}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="text-align: center; align-items: center;">
+                        <div class="col-sm-4 p-2 text-center text-lg-start mt-4 pt-2">
+                            <button type="button" class="btn btn-sm btn-success" (click)="confirmUserActivationCode()"
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;">{{"CONFIRMCODE"|translate}}
+
+                                <span *ngIf="showSpinner==1" class="spinner-border spinner-border-sm" role="status"
+                                    aria-hidden="true"></span>
+                                    <label *ngIf="sendAgainFlag==0" for=" 
+                                    " class="form-label">{{timeLeft}} <span>{{"SECOND"|translate}}</span></label>
+                            </button>
+                        
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="form-label" for="form3Example3"></label>
+
+                            <button *ngIf="sendAgainFlag==1" type="button" class="btn btn-sm btn-success"
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;" (click)="sendActivationCode()">
+                                {{"RESEND"|translate}}
+                            </button>
+                        </div>
+                    </div>
+
+
+
+                </form>
+            </div>
+            <div class="col-md-9 col-lg-6 col-xl-5">
+                <img src="/assets/images/activation-code.png" style="height:300px ;width:300px" class="img-fluid"
+                    alt="Sample image">
+            </div>
+        </div>
+    </div>
+
+</section>

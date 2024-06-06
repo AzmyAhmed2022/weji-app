@@ -1,0 +1,401 @@
+
+
+@media only screen and (max-width:646px){
+    // for mobile
+    [class*="col-"]{
+        width: 100%;
+    }
+    .desktop-css{
+        display: none;
+    }
+    .mobile-css{
+        display: block;
+    }
+    .sidenav{
+        display: none;
+    }
+}
+
+@media only screen and (min-width:646px){
+    // for mobile
+    [class*="col-"]{
+        width: 100%;
+    }
+    .mobile-css{
+        display: none;
+    }
+    .desktop-css{
+        display: block;
+    }
+    .sidenav{
+        width: none;
+    }
+}
+.nav-link {
+    padding: none;
+}
+h1 {
+    a{
+        
+
+    margin-right: 8px;
+    margin-left: 15px;
+    margin-top: 10px;
+    font-size: 23px;
+    cursor: pointer;
+
+    }
+}
+
+.header-container {
+    transition: all .5s ease;
+    background-color: white;
+    border: 1px solid whitesmoke;
+
+}
+
+.container {
+    padding: none;
+}
+
+.header-collapsedAr {
+    padding: 4px;
+    margin-right: 258px;
+}
+
+.header-containerEn {
+    margin-left: 42px;
+    transition: all .5s ease;
+
+    border: 1px solid whitesmoke;
+}
+
+.header-collapsedAr {
+    padding: 4px;
+    margin-left: 258px;
+}
+
+.app-logo {
+    color: #0c8;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.user {
+    color: rgb(255, 112, 93);
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.social-media {
+    color: #505050;
+    font-size: 1.2rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+    i {
+        color: #505050;
+        padding: 1px;
+        cursor: pointer;
+
+    }
+}
+
+.currentCat {
+    margin-right: 40px;
+    margin-left: 40px;
+
+    i {
+        font-size: 1.2rem;
+        color: #0c8;
+    }
+
+    strong {
+        color: #0c8
+    }
+}
+
+.header-guide {
+    color: #0c8;
+    font-size: 20px;
+    margin-right: 30px;
+    margin-left: 30px;
+    border-radius: 8px;
+    padding: 1px;
+
+    :hover {
+        color: #0c8;
+    }
+
+    a {
+        color: #0c8;
+    }
+
+    i {
+        color: #0c8;
+    }
+
+    .login {
+        font-size: 30px;
+
+        a {
+            color: #0c8;
+            font-size: 17px;
+
+        }
+    }
+
+    .log-out {
+        a {
+            color: red;
+
+        }
+    }
+}
+
+.sidenav-header {
+    font-size: 1.2rem;
+    color: rgb(255, 112, 93);
+    margin-right: 3px;
+
+
+
+
+    a {
+        font-size: 15px;
+        cursor: pointer;
+    }
+
+
+    i {
+        font-size: 1.2rem;
+        color: rgb(255, 112, 93);
+
+    }
+
+    .lang {
+        color: rgb(255, 112, 93);
+        font-size: 17px;
+        margin: 8px;
+        font-weight: bolder;
+        border-radius: 10px;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+        i {
+            font-size: 20px;
+
+        }
+
+        a {
+            font-size: 15px;
+            color: black;
+        }
+
+        :hover {
+            background-color: rgb(199, 255, 199);
+            color: black;
+            border-radius: 8px;
+        }
+    }
+}
+
+.mob {
+    color: #0c8;
+}
+
+.sidenav-footer {
+    font-size: 1.2rem;
+    color: #0c8;
+    margin-bottom: 8px;
+    height: 40px;
+    padding-top: none;
+    margin-top: 50px;
+    border-radius: 5px;
+    background-color: rgb(199, 255, 199);
+    border-radius: 8px;
+
+    a {
+        font-size: 17px;
+        cursor: pointer;
+    }
+
+
+    i {
+        font-size: 2rem;
+        color: #0c8;
+
+    }
+}
+.lang-header{
+    display: none;
+}
+.lang-side{
+    display: block;
+}
+.sidenav {
+    background-color: #fff;
+    transition: all .4s ease;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    height: 150vh;
+    margin-top: 60px;
+    border: 1.5px solid whitesmoke;
+    display: none;
+}
+
+
+ul {
+    list-style: none;
+    padding: 4px;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    // padding: 0.938rem 0.938rem 0 .938rem;
+    width: 100%;
+    font-family: cursive;
+
+    .open-menu {
+        cursor: pointer;
+        width: 1.4rem;
+        height: 1.4rem;
+        border-radius: 10px;
+        background-color: transparent;
+        border: none;
+        font-size: 14px;
+        color: white;
+        align-items: center;
+
+        i {
+            font-size: 22px;
+            color: rgb(255, 112, 93);
+            ;
+        }
+    }
+
+    .logo-text {
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
+        font-size: 18px;
+        font-weight: lighter;
+        color: #9f9c9c;
+
+    }
+
+    .close-menu {
+        margin-left: 15px;
+        margin-right: 15px;
+        cursor: pointer;
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 50px;
+        background-color: transparent;
+        border: none;
+        font-size: 14px;
+
+        i {
+            font-size: 22px;
+            color: rgb(255, 112, 93)
+        }
+    }
+
+    .close-icon {
+        color: rgb(247, 136, 62);
+        font-size: 22px;
+
+    }
+
+    .fa-times {
+        color: #0c8;
+        font-size: 22px;
+    }
+}
+
+.sidenav-collapsed {
+    width: 20.2rem;
+    display: block;
+
+}
+
+.sidenav-list {
+    list-style: none;
+    padding: 0.838rem;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: calc(100%);
+    cursor: pointer;
+    list-style-type: none;
+
+}
+
+.sidenav-nav-item {
+    width: 100%;
+    margin-bottom: .625rem;
+
+    .sidenav-nav-link {
+        display: flex;
+        align-items: center;
+        height: 2rem;
+        color: #0c8;
+        ;
+        text-decoration: none;
+        transition: color .5s ease;
+
+
+
+        .sidenav-link-icon {
+            font-size: 22px;
+            width: 1.5rem;
+            min-width: 1.5rem;
+            text-align: center;
+
+        }
+
+        .sidenav-link-text {
+            margin-left: 1rem;
+            margin-right: 1rem;
+            font-size: 15px;
+            font-weight: bolder;
+            color: #161616;
+            font-family: serif;
+
+
+        }
+
+        i {
+            font-size: 25px;
+        }
+    }
+
+}
+
+
+
+li {
+    border-bottom: 1px solid whitesmoke;
+}
+
+.active {
+
+    .sidenav-link-icon {
+        color: rgb(255, 112, 93);
+    }
+
+    .sidenav-link-text {
+        color: rgb(255, 112, 93);
+    }
+
+
+}
+
+.weji-coo {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 3px;
+    margin-left: 3px
+}

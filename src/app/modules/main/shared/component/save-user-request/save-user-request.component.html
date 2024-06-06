@@ -1,0 +1,278 @@
+<div>
+
+    <div class="modal-header">
+        <div class="row">
+            <div class="col-2">
+                <button type="button" class="close pull-left" aria-label="Close" (click)="modalRef.hide()">
+                    <h4 aria-hidden="true">×</h4>
+                </button>
+            </div>
+        </div>
+        <div class="col-9">
+            <h4 class="modal-title pull-right">
+                {{translate.currentLang=='ar'?'طلب':'Order'}} {{translate.currentLang=='ar'?
+                wjiclassificationObj.nameAr:
+                wjiclassificationObj.nameEn}}</h4>
+        </div>
+
+
+    </div>
+    <div class="modal-body center-text" style="text-align: center;">
+        <div class="container" *ngIf="showTerms==false">
+            <div class="master-form" [formGroup]="userRequestForm">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <label class="form-label" class="form-label" for="form3Example3">{{"GENDER"|translate}}</label>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                            formControlName="Gender">
+                            <option selected disabled>{{"GENDER" |translate}}</option>
+                            <option value="1">{{"MALE" |translate}}
+                            </option>
+                            <option value="2">{{"FEMALE" |translate}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <label class="form-label" for="UserName">{{"FULLNAME" |translate}}</label>
+                            <input type="text" class="form-control form-control-sm" id="UserName"
+                                formControlName="UserName" name="UserName"
+                                [ngClass]="{ 'is-invalid': submitted && f['UserName'].errors }">
+
+                            <div *ngIf="(submitted && f['UserName'].errors)" class="invalid-feedback">
+                                <div *ngIf="f['UserName'].errors['required']">
+
+                                    {{"FULLNAME"|translate}}
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+
+                        <label class="form-label" class="form-label" for="form3Example3">{{"GOV" |translate}}</label>
+
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                            formControlName="GovSerial" (change)="selectAddress('Gov')">
+                            <option selected disabled>{{"GOV" |translate}}</option>
+
+                            <option *ngFor="let gov of GovArr" [value]="gov.Serial">
+                                {{translate.currentLang=='ar'?gov.NameAr:gov.NameEn}}
+
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="form-label" for="Mobile">{{"MOBILE" |translate}}</label>
+                            <input type="text" class="form-control form-control-sm" id="Mobile" formControlName="Mobile"
+                                name="Mobile" [ngClass]="{ 'is-invalid': submitted && f['Mobile'].errors }">
+                            <div *ngIf="(submitted && f['Mobile'].errors)" class="invalid-feedback">
+                                <div *ngIf="f['Mobile'].errors['required']">
+
+                                    {{"ENTERPHONENUMBER"|translate}}
+                                </div>
+                                <div *ngIf="f['Mobile'].errors['minlength']">
+
+                                    {{translate.currentLang=='ar'?'رقم الهاتف يجب ان يكون 11 رقم على الاقل':'Mobile must
+                                    be
+                                    at least 11 characters'}}
+                                </div>
+                                <div *ngIf="f['Mobile'].errors['maxlength']">
+                                    {{translate.currentLang=='ar'?'رقم الهاتف يجب ان يكون 11 رقم على الاكثر':'Mobile
+                                    must be
+                                    at least 11 characters'}}
+                                </div>
+
+                                <div *ngIf="f['Mobile'].errors['pattern']">
+                                    {{"MOBILEINVALID"|translate}}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="form-label" for="Email">{{"EMAILIFEXISTS" |translate}}</label>
+                            <input type="email" class="form-control form-control-sm" id="Email" formControlName="Email"
+                                name="Email" [ngClass]="{ 'is-invalid': submitted && f['Email'].errors }">
+
+                            <div *ngIf="submitted && f['Email'].errors" class="invalid-feedback">
+                                <div *ngIf="f['Email'].errors['required']">
+                                    Email is required
+                                    {{"ENTEREMAIL"|translate}}
+                                </div>
+                                <div *ngIf="f['Email'].errors['email']">
+                                    {{"EMAILINVALID"|translate}}<span>....Ex:- weji@gmail.com</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="form-label" class="form-label" for="form3Example3">{{"CITY" |translate}}</label>
+
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                            formControlName="CitySerial" (change)="selectAddress('City')">
+                            <option selected disabled>{{"CITY" |translate}}</option>
+
+                            <option *ngFor="let city of CityArr" [value]="city.Serial">
+                                {{translate.currentLang=='ar'?city.NameAr:city.NameEn}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6" style="padding-bottom:10px ;">
+                        <label class="form-label" class="form-label" for="form3Example3">{{"STATE" |translate}}</label>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                            formControlName="StateSerial" (change)="selectAddress('State')">
+                            <option selected disabled>{{"STATE" |translate}}</option>
+
+                            <option *ngFor="let state of StateArr" [value]="state.Serial">
+                                {{translate.currentLang=='ar'?state.NameAr:state.NameEn}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="form-label" class="form-label" for="form3Example3">{{"VILLEGE"
+                            |translate}}</label>
+
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                            formControlName="VillegeSerial">
+                            <option selected disabled>{{"VILLEGE" |translate}}</option>
+                            <option *ngFor="let villege of VillegeArr" [value]="villege.Serial">
+                                {{translate.currentLang=='ar'?villege.NameAr:villege.NameEn}}
+                            </option>
+                        </select>
+                    </div>
+
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="form-label" for="Address">{{"FULLADDRESS" |translate}}</label>
+                            <input type="text" class="form-control form-control-sm" id="Address"
+                                formControlName="Address" name="Address"
+                                [ngClass]="{ 'is-invalid': submitted && f['Address'].errors }">
+
+                            <div *ngIf="(submitted && f['Address'].errors)" class="invalid-feedback">
+                                <div *ngIf="f['Address'].errors['required']">
+
+                                    {{"FULLADDRESS"|translate}}
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="form-label" for="RequestDescription">{{"ORDERDETAILS" |translate}}</label>
+                            <input type="text" class="form-control form-control-sm" id="RequestDescription"
+                                formControlName="RequestDescription" name="RequestDescription"
+                                [ngClass]="{ 'is-invalid': submitted && f['RequestDescription'].errors }">
+
+                            <div *ngIf="(submitted && f['RequestDescription'].errors)" class="invalid-feedback">
+                                <div *ngIf="f['RequestDescription'].errors['required']">
+
+                                    {{"ORDERDETAILS"|translate}}
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="form-label" for="EmaExpeExpectedPricectedPrice">{{"EXPECTEDPRICE"
+                                |translate}}</label>
+                            <input type="text" class="form-control form-control-sm" id="ExpectedPrice"
+                                formControlName="ExpectedPrice" name="ExpectedPrice">
+                        </div>
+                    </div>
+
+                    <!-- progress -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="form-label" for="Level">{{"EXPECTEDTIME" |translate}}</label>
+                            <input type="text" class="form-control form-control-sm" id="ExpectedDeliverTime"
+                                formControlName="ExpectedDeliverTime" name="ExpectedDeliverTime">
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label class="form-label" for="ParentCode">{{"NOTES" |translate}}</label>
+                            <input type="Notes" class="form-control form-control-sm" id="Notes" formControlName="Notes"
+                                name="Notes">
+                        </div>
+                    </div>
+                    <!-- location -->
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="form-label" for="location">{{"CONFIRMORDER" |translate}}</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" formControlName="Confirmed"
+                                    id="Confirmed" checked
+                                    [ngClass]="{ 'is-invalid': submitted && f['Confirmed'].errors }">
+
+                                <div *ngIf="submitted && f['Confirmed'].errors" class="invalid-feedback">
+                                    {{"CONFIRMORDER"|translate}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+
+
+
+                        <div class="row" style="text-align: center;">
+                            <div class="form-group col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" formControlName="ConfirmTerms"
+                                        id="ConfirmTerms"
+                                        [ngClass]="{ 'is-invalid': submitted && f['ConfirmTerms'].errors }">
+                                    <button type="button" (click)="acceptterms()"
+                                        class="btn btn-sm btn-success btn-floating mx-1">
+                                        <i class="fa fa-file-word-o" aria-hidden="true"></i>{{"TERMSACCEPT"
+                                        |translate}}</button>
+                                    <div *ngIf="submitted && f['ConfirmTerms'].errors" class="invalid-feedback">
+                                        {{"TERMSACCEPT"|translate}}
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                        <div class="row" style="text-align: center;">
+
+                        <div class="col-12">
+                              
+
+                            <button type="button" (click)="saveUserRequest()" class="btn btn-sm btn-success btn-floating mx-1">
+                                <i class="fa fa-file-word-o" aria-hidden="true"></i>
+                                {{"SENDORDER" |translate}}</button>
+                    </div>
+</div>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <!-- terms area -->
+        <div *ngIf="showTerms==true">
+            <div class="row" style="text-align: center;padding:15px">
+                <div class="col-12">
+                    <button type="button" (click)="acceptterms()" class="btn btn-sm btn-success btn-floating mx-1">
+                        <i class="fa fa-file-word-o" aria-hidden="true"></i>{{"TERMSACCEPT" |translate}}</button>
+                </div>
+
+            </div>
+        </div>
+    </div>

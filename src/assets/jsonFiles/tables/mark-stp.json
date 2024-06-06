@@ -1,0 +1,10 @@
+[
+    {
+        "serial": 1,
+        "nameAr": "Crown",
+        "nameEn": "Crown",
+        "active": 1,
+        "id": "CROWN",
+        "iconSrc": "/assets/img/dentalchart/1crown.PNG"
+    }
+]

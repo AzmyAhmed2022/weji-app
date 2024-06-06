@@ -1,0 +1,112 @@
+<section class="card" [ngClass]="translate.currentLang=='ar'?'right-auth-style':'left-auth-style'">
+    <div class="container card-body">
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <form class="master-form" [formGroup]="UserLoginForm">
+                    <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+                        <p class="lead fw-normal mb-0 me-3 form-label">
+                            {{translate.currentLang=="ar"?'أدخل ب':'Login With'}}
+
+                        </p>
+                        <button type="button" class="btn btn-sm btn-success btn-floating mx-1">
+                            <i class='fa fa-facebook'></i>
+                        </button>
+
+                        <button type="button" class="btn btn-sm btn-success btn-floating mx-1">
+                            <i class='fa fa-twitter'></i> </button>
+
+                        <button type="button" class="btn btn-sm btn-success btn-floating mx-1">
+                            <i class='fa fa-linkedin-square'></i> </button>
+                    </div>
+
+                    <div class="divider d-flex align-items-center my-4">
+                        <label class="form-label mx-3 mb-0" for="form3Example3">
+                            {{"LOGIN"|translate}}
+                            <i class='fa fa-rocket'></i>WE</label>
+                        <a class="text-center navbar-brand">
+                            <img src="/assets/images/login.png" alt="" style="height:130px;width:130px" width="90"
+                                height="1">
+                        </a>
+                    </div>
+                    <!-- phoner input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="form3Example3"> {{"ENTERPHONENUMBER"|translate}}
+                        </label>
+                        <input type="text" formControlName="Mobile" placeholder="Ex:- 01004303936"
+                            class="form-control form-control-sm"
+                            [ngClass]="{ 'is-invalid': submitted && f['Mobile'].errors }" />
+
+                        <div *ngIf="(submitted && f['Mobile'].errors)" class="invalid-feedback">
+                            <div *ngIf="f['Mobile'].errors['required']">
+
+                                {{"ENTERPHONENUMBER"|translate}}
+                            </div>
+                            <div *ngIf="f['Mobile'].errors['minlength']">
+
+                                {{translate.currentLang=='ar'?'رقم الهاتف يجب ان يكون 11 رقم على الاقل':'Mobile must be
+                                at least 11 characters'}}
+                            </div>
+                            <div *ngIf="f['Mobile'].errors['maxlength']">
+                                {{translate.currentLang=='ar'?'رقم الهاتف يجب ان يكون 11 رقم على الاكثر':'Mobile must be
+                                at least 11 characters'}}
+                            </div>
+
+                            <div *ngIf="f['Mobile'].errors['pattern']">
+                                {{"MOBILEINVALID"|translate}}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Password input -->
+                    <div class="form-outline mb-3">
+                        <label class="form-label" for="form3Example4"> {{"ENTERPASSWORD"|translate}}</label>
+
+                        <input type="password" [ngClass]="{ 'is-invalid': submitted && f['Password'].errors }"
+                            id="form3Example4" formControlName="Password" class="form-control form-control-sm" />
+                        <div *ngIf="submitted && f['Password'].errors" class="invalid-feedback">
+                            <div *ngIf="f['Password'].errors['required']">
+
+                                {{"ENTERPASSWORD"|translate}} </div>
+
+
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <!-- Checkbox -->
+                        <div class="form-check mb-2">
+                            <label class="form-check-label" for="form2Example3">
+                                {{"REMEMBERME"|translate}} </label>
+                            <input class="form-check-input me-2" formControlName="RememberMe" type="checkbox" value=""
+                                id="form2Example3" />
+                        </div>
+                        <a class="link-danger form-label" [routerLink]="['/main/forget-password']">
+                            {{"FORGETPASSWORD"|translate}}</a>
+                    </div>
+
+                    <div class="text-center text-lg-start mt-4 pt-2">
+                        <button type="button" class="btn btn-sm btn-success" (click)="login()"
+                            style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                            <span>{{"LOGIN"|translate}}</span>
+
+                            <span *ngIf="showSpinner==1" class="spinner-border spinner-border-sm" role="status"
+                                aria-hidden="true"></span>
+                        </button>
+                        <p class=" form-label small fw-bold mt-2 pt-1 mb-0">
+                            {{"HAVENOACCOUNT"|translate}}
+                            <a [routerLink]="['/main/signup']">
+                                {{"NEWACCOUNT"|translate}}
+                            </a>
+
+                        </p>
+                    </div>
+
+                </form>
+            </div>
+            <div class="col-md-9 col-lg-6 col-xl-5">
+                <!-- <img src="/assets/images/login.png" class="img-fluid" alt="Sample image"> -->
+                <img src="/assets/images/home.png" style="width:90%;height:500px;margin-top: 5px;">
+
+            </div>
+        </div>
+    </div>
+
+</section>
